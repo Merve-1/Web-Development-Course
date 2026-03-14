@@ -1,0 +1,45 @@
+1. text/ img/ link
+2. table/ form/ input
+3. color / backgroundColor / font
+4. video / audio 
+5. semantic tags
+
+Elements: Opening tag, Content, Closing tag & Styling
+
+Hierarchy order is important in SEO
+====================================
+Heading Hierarchy (H1 → H6)
+This is the most important on-page hierarchy.
+
+Example structure:
+H1 – Main topic of the page (use once)
+H2 – Major sections
+H3 – Subsections under H2
+H4–H6 – Deeper details if needed
+
+Example:
+H1: Best SEO Strategies for 2026
+H2: On-Page SEO
+H3: Keyword Optimization
+H3: Internal Linking
+H2: Technical SEO
+H3: Page Speed
+H3: Mobile Optimization
+
+Why it matters:
+Helps search engines understand topic importance
+Improves content readability
+Supports featured snippets
+====================================
+
+Formatting
+- Bold (<b>) – Displays text in bold style to visually highlight it without adding semantic importance.
+- Emphasize (<em>) – Emphasizes text to show stress or importance, usually displayed in italics.
+- Italic (<i>) – Displays text in italic style for alternate voice, technical terms, or stylistic purposes.
+- Strong (<strong>) – Indicates text with strong importance, usually shown in bold and meaningful for accessibility/SEO.
+- Insert (<ins>) – Shows text that has been added or inserted into a document (often underlined).
+- Delete (<del>) – Indicates text that has been removed from the document (usually shown with a strikethrough).
+- Sub (<sub>) – Displays text as subscript, slightly below the normal text line (e.g., chemical formulas like H₂O).
+- Sup (<sup>) – Displays text as superscript, slightly above the normal text line (e.g., exponents like x²).
+- Mark (<mark>) – Highlights text to show it is relevant or marked for reference.
+- Underline (<u>) – Underlines text for stylistic emphasis or to indicate non-textual annotation.
