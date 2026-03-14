@@ -1,3 +1,4 @@
+HTML
 1. text/ img/ link
 2. table/ form/ input
 3. color / backgroundColor / font
@@ -6,8 +7,9 @@
 
 Elements: Opening tag, Content, Closing tag & Styling
 
-Hierarchy order is important in SEO
 ====================================
+Hierarchy order is important in SEO
+
 Heading Hierarchy (H1 → H6)
 This is the most important on-page hierarchy.
 
@@ -43,3 +45,7 @@ Formatting
 - Sup (<sup>) – Displays text as superscript, slightly above the normal text line (e.g., exponents like x²).
 - Mark (<mark>) – Highlights text to show it is relevant or marked for reference.
 - Underline (<u>) – Underlines text for stylistic emphasis or to indicate non-textual annotation.
+
+====================================
+Division Tag (div)
+A <div> acts like a box that holds other HTML elements so you can style or organize them as one unit.
