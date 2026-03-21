@@ -1,4 +1,4 @@
-# Web Development Course Repository
+# Web Development Course 
 This repository contains structured learning materials and practice code for a full web development course. Each major topic is organized into its own Git branch for clarity and separation of concerns.
 
 <img width="862" height="562" alt="image" src="https://github.com/user-attachments/assets/481414e7-bad4-444b-ae7f-3185d63b38a3" />
