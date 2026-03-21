@@ -5,6 +5,10 @@ HTML
 4. video / audio 
 5. semantic tags
 
+Extensions: 
+- https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
+- https://marketplace.visualstudio.com/items?itemName=Tyriar.lorem-ipsum
+
 Elements: Opening tag, Content, Closing tag & Styling
 
 ====================================
@@ -32,8 +36,8 @@ Why it matters:
 Helps search engines understand topic importance
 Improves content readability
 Supports featured snippets
-====================================
 
+====================================
 Formatting
 - Bold (<b>) – Displays text in bold style to visually highlight it without adding semantic importance.
 - Emphasize (<em>) – Emphasizes text to show stress or importance, usually displayed in italics.
@@ -49,3 +53,78 @@ Formatting
 ====================================
 Division Tag (div)
 A <div> acts like a box that holds other HTML elements so you can style or organize them as one unit.
+
+====================================
+Semantic Tags 
+HTML elements that describe the meaning of the content they hold. By reading the tag name, you can understand the role of that section on the webpage.
+
+- <header> – page or section header
+- <nav> – navigation links
+- <section> – a section of content
+- <article> – independent content
+- <footer> – page footer
+
+These tags are part of HTML5 and help both developers and search engines understand the structure of a webpage.
+
+====================================
+ID and Class in HTML
+
+ID (id)
+- An ID is a unique identifier for a single HTML element.
+- Each ID should appear only once on a page.
+- Often used for CSS styling or JavaScript targeting.
+<p id="intro">Welcome to our website!</p>
+
+Class (class)
+- A class can be shared by multiple elements.
+- Used to group elements for styling or scripting.
+<p class="highlight">This is important text.</p>
+<p class="highlight">This text is also highlighted.</p>
+
+| Feature      | ID               | Class                        |
+| ------------ | ---------------- | ---------------------------- |
+| Uniqueness   | Must be unique   | Can be used on many elements |
+| CSS selector | `#idName`        | `.className`                 |
+| JS usage     | `getElementById` | `getElementsByClassName`     |
+
+Use this for image preview: https://marketplace.visualstudio.com/items?itemName=kisstkondoros.vscode-gutter-preview
+
+====================================
+Table
+- <table>
+- <tr> (table row)
+- <th> (header cell)
+- <td> (data cell)
+
+<table>
+   <tr>
+      <th>Header</th>
+   </tr>
+   <tr>
+      <td>Data</td>
+   </tr>
+</table>
+
+Semantic Table Structure 
+- <thead> → header section
+- <tbody> → body section
+
+<table>
+   <thead>
+      <tr>
+         <th>Header</th>
+      </tr>
+   </thead>
+
+   <tbody>
+      <tr>
+         <td>Data</td>
+      </tr>
+   </tbody>
+</table>
+
+<table border ="1"> this way to add a border to the table is now deprecated 
+
+====================================
+Why do we place navbar links inside an unordered list (ul) with list items (li)?
+So that we can easily make the navbar responsive and convert it into a dropdown menu on smaller screens.

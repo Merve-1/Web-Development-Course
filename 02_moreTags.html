@@ -12,7 +12,7 @@
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
         <button>div 1 Button</button>
     </div>
-
+    <hr>
     <div style="background-color: lightcoral;">
         <h2>Header 2 in div 2</h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -20,11 +20,182 @@
     </div>
 
     <p>This is a paragraph. <span style="background-color: orange;">Text in span</span>. Continue your paragraph.</p>
-    
+    <hr>
     <!--Semantic Vs Non-Semantic-->
+    <img src="./img/img2.jpg" alt="Semantic Vs Non-Semantic">
+    <!--Non Semantic / Old version HTML V4-->
+    <!-- div + Class or Id-->
+    <div class="card" style="background-color: rgb(9, 206, 140);">
+        <h3>This is Card in div with class="card"</h3>
+        <img src="./img/img3.webp" style="width: 200;">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    </div>
+
+    <!--Semantic HTML V5-->
+    <section style="background-color: rgb(69, 142, 206);">
+         <h3>This is Card in section</h3>
+        <img src="./img/img3.webp" style="width: 200;">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    </section>
+    
+    <hr>
     <!--Images-->
-    <!--Links-->
+    <h2>Images</h2>
+    <!-- Empty Tag-->
+    <img src="./img/img8.avif" style="width: 100;" alt="img8">
+    <img src="./img/img9.webp" style="width: 135;" alt="img9">
+
+    <hr>
+    <h2>Link</h2>
+    <!--Links: Anchor Tag-->
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Service</a>
+    <a href="#">Work</a>
+    <a href="https://www.google.com/" target="_blank">Google</a>
+
+
+    <hr>
     <!--Tables-->
-    <!--Froms-->
+    <h2>Table</h2>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Company</th>
+            <th>Salary</th>
+            <th>Phone</th>
+        </tr>
+        <tr>
+            <td>MM</td>
+            <td>XXXX</td>
+            <td>20000$</td>
+            <td>105665</td>
+        </tr>
+        <tr>
+            <td>OO</td>
+            <td>XXXX</td>
+            <td>15000$</td>
+            <td>15569</td>
+        </tr>
+       
+    </table>
+    <br>
+    <table border="2">
+         <thead>
+            <tr>
+                <th> Option 1</th>
+                <th> Option 2</th>
+                <th> Option 3</th>
+                <th colspan="2"> Option 4</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr>
+                <td>value 1</td>
+                <td rowspan="3">value 2</td>
+                <td>value 3</td>
+                <td>value 4</td>
+                <td>value 5</td>
+            </tr>
+             <tr>
+                <td>value 1</td>
+                <td>value 2</td>
+                <td>value 3</td>
+                <td>value 4</td>
+            </tr>
+            <tr>
+                <td>value 1</td>
+                <td>value 2</td>
+                <td>value 3</td>
+                <td>value 4</td>
+            </tr>
+            <tr>
+                <td>value 1</td>
+                <td>value 2</td>
+                <td>value 3</td>
+                <td>value 4</td>
+                <td>value 5</td>
+            </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+                <th>total</th>
+                <td colspan="4" style="text-align: center;">2000$</td>
+          </tr>
+        </tfoot>
+    </table>
+    <hr>
+    <!--List-->
+    <h2>List</h2>
+    <h4>Unordered List</h4>
+    <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+    </ul>
+    <ul type="square">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+    </ul>
+    <ul style="list-style-type: decimal-leading-zero">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+    </ul>
+    <hr>
+    <h4>Ordered List</h4>
+    <ol>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+    </ol>
+    <ol type="A">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+    </ol>
+    <ol type="a">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+    </ol>
+    <ol type="I">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+    </ol>
+     <ol type="i">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+    </ol>
+    <hr>
+    <h4>Description List</h4>
+    <dl>
+        <dt>HTML</dt><!--Description Term-->
+        <dd>--HyperText Markup Language</dd><!--Description Defination-->
+        <dt>CSS</dt>
+        <dd>--Cascading Style Sheet</dd>
+    </dl>
+    <hr>
+   
 </body>
 </html>
