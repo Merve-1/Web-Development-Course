@@ -203,11 +203,4 @@ Form
             Checkboxes → can share the same name, but each option is independent (multiple can be selected).
 - textarea
 - fieldset
-
-
-
 ====================================
-video
-
-====================================
-iframe
