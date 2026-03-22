@@ -128,3 +128,86 @@ Semantic Table Structure
 ====================================
 Why do we place navbar links inside an unordered list (ul) with list items (li)?
 So that we can easily make the navbar responsive and convert it into a dropdown menu on smaller screens.
+
+====================================
+Form
+- form action 
+   What action="" means
+   In a form like:
+      <form action="" method="POST">
+   An empty action means:
+      Submit the form to the same URL (the current page).
+      So if you're on:
+         https://example.com/login
+      The form submits right back to /login.
+
+   Back in early web development (mid-1990s, HTML 2.0 era):
+   Forms were tightly coupled with server-side scripts (like PHP, ASP).
+   A page would often:
+   Show a form (GET request)
+   Process the form (POST request to the same script)
+   So developers used either:
+      <form action="/same-page-script">
+   or simply:
+      <form action="">
+   This made it easy to write self-processing forms, especially in:
+      PHP ($_POST on same file)
+
+   Best practice today
+      Use action="" when:
+         You want same-page submission
+         You're building simple server-side apps
+
+   Better alternative (explicit is safer):
+      <form action="/submit-form">
+   Clear, predictable, and easier to maintain.
+
+   In modern apps:
+   Use JavaScript instead:
+      event.preventDefault();
+      fetch("/api/submit", {...});
+
+- Input 
+   Types => text, email, password, file, color, range, radio, checkbox, select-option-optgroup, submit, reset 
+            input 
+               type → how user inputs data, behavior & UI
+               name → key, what gets sent 
+               value → value, the actual data sent 
+               -----------------------------------
+               type = text
+                  {
+                  "name": "value"
+                  }
+               -----------------------------------
+               <input type="text" name="username" value="Ali">
+                  username=Ali
+               <input type="text" name="username">
+               User Typed: Omar
+                  username=Omar
+               -----------------------------------
+               <input type="checkbox" name="hobby" value="football">
+                  hobby=football
+            ==========================================================
+            file types
+               accept=".png" 
+               accept=".svg" 
+               accept=".docx" 
+               accept=".png, .docx" 
+               accept=".image/*"  //all image types
+               accept=".mp4" 
+               accept=".video/*"  //all video types
+               accept=".mp3" 
+               accept=".audio/*"  //all audtio types
+            ==========================================================
+            Radio buttons → must share the same name to allow only one selection.
+            Checkboxes → can share the same name, but each option is independent (multiple can be selected).
+- textarea
+- fieldset
+
+
+
+====================================
+video
+
+====================================
+iframe

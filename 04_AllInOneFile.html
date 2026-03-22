@@ -18,7 +18,7 @@
         </nav>
         <button><a href="#contact">Contact</a></button>
     </header>
-
+    <hr>
     <!--Aside-->
     <aside>
         <nav class="nav justify-content-center">
@@ -29,15 +29,48 @@
             </ul>
         </nav>
     </aside>
-
+    <hr>
     <!-- Main  -->
     <main class="main">
 
         <!-- Home Section -->   
         <section class="hero" id="home">
             <h2>This is the Home (Hero) Section</h2>
-            
+            <video src="video/video2.mp4"  width="500" controls autoplay muted loop></video>
+            <!--The videos don't have sound, when the first is not working the second will be played-->
+            <video controls autoplay muted loop width="281">
+                <source src="video/video3.mp4">
+                <source src="video/video1.mp4">
+            </video>
+            <br>
+            <audio src="audio/audio1.mp3" controls></audio>
+            <br>
+            <table>
+               <thead>
+                 <tr>
+                    <th>Name</th>
+                    <th>Company</th>
+                    <th>Salary</th>
+                    <th>Phone</th>
+                </tr>
+               </thead>
+                <tbody>
+                    <tr>
+                    <td>MM</td>
+                    <td>XXXX</td>
+                    <td>20000$</td>
+                    <td>105665</td>
+                    </tr>
+                    <tr>
+                        <td>OO</td>
+                        <td>XXXX</td>
+                        <td>15000$</td>
+                        <td>15569</td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
+        <hr>
 
         <!-- About Section -->
         <section class="about" id="about">
@@ -53,7 +86,7 @@
                 </figure>
             </article>
         </section>
-
+        <hr>
         <!-- Service Section -->
         <section class="service" id="service">
             <h2>This is the Sevices Section</h2>
@@ -62,24 +95,41 @@
                 <li>Videos</li>
                 <li>Audios</li>
             </ul>
-            
-        </section>
 
+            <!--APIs can be used here (ex. Maps)-->
+            <iframe src="https://jsonplaceholder.typicode.com/posts" frameborder="0"></iframe>
+            <iframe src="index.html" frameborder="0"></iframe> 
+        
+        </section>
+        <hr>
         <!-- Work Section -->
         <section class="work" id="work">
             <h2>This is the Work Section</h2>
             <img src="./img/img5.png" style="width: 75;" alt="workImage1">
             <img src="./img/img6.jpg" style="width: 75;" alt="workImage2">
             <img src="./img/img7.jpeg" style="width: 75;" alt="workImage3">
-
         </section>
-
+        <hr>
         <!-- Contact Section -->
         <section class="contact" id="contact">
             <h2>This is the Contact Section</h2>
+            <form action="">
+                <label for="">Name</label>
+                <input type="text" name="name" id="name" placeholder="Your Name" required>
+                <br>
+                <label for="">Email</label>
+                <input type="email" name="email" id="email" placeholder="email" required>
+                <br>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <br>
+                <button type="submit">Submit</button>
+                <button type="reset">Reset</button>
+            </form>
         </section>
 
     </main>
+    <hr>
 
     <!-- Footer -->
     <footer class="footer">
