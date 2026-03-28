@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+        <!--External Style-->
+        <link rel="stylesheet" href="styleBasics.css">
+        
+        <!--Internal Style-->
+        <style>    
+            pre{
+                color:green;
+            }
+        </style>
+    </head>
+    <body>
+        <p style="color:black;">CSS Syntax in Internal/ External Style</p>
+        <hr>
+        <pre style="color: black;">
+        selector {
+            property: value;
+        }
+        p{
+            color: red;
+        }
+        </pre>
+
+        <p>Priority </p>
+        <p>Internal <=  Internal <= Extneral</p>
+
+        <hr>
+        <h4 style="color: red;">This is Inline Style</h4>
+        
+        <!--Inline Style-->
+        <p>This is Internal Style</p>
+
+        <pre>This is External Style</pre>
+        <hr>
+        
+        <h3>This text color is the default for the file, so all text in any tag will use it automatically.</h3>
+        
+        <h2>H2 Tags style is navy background color</h2>
+        
+        <p style="color:black;">
+        The body styling differs from the universal styling: the universal selector targets all elements individually, while the body applies styles to the page as a whole.
+        </p>
+
+        <p class="card">This text is styled using a class selector.</p>
+
+        <p id="uniqueCard">This text is styled using an Id selector.</p>
+        <div class="parent">
+            This is the parent div
+            <div class="child">
+                This is the child div. You can target it using the class selector (.child) or by using a descendant selector (.parent .child).
+            </div>
+        </div>
+        <h6>This is h6 (Block Element)</h6>
+        <span>This is Span (Inline Element)</span>
+    </body>
+</html>
+
+
