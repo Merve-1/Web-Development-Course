@@ -1,0 +1,93 @@
+/*Properities*/
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Prop+Double+Ink:wght,SZP2@100..900,76&family=Iosevka+Charon+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+/*Text: Color*/
+.p1{
+    color:red;
+    color: #ff0000;
+    color:rgb(255,0,0);
+}
+/*HexaCode*/
+/*0 1 2 3 4 5 6 7 8 9 A B C D E F*/
+
+/*rgb*/
+/*red green blue*/
+/*ff   00    00 */
+/*f    0     0  */
+
+/*rgba*/
+/*Alpha from(0 to 1)*/
+
+/*Text: Default Size 16*/
+.p1{
+    font-size:20px;
+}
+.p2{
+    /*From 100 (min) to 900 (max)*/
+    font-weight: 800;
+}
+.p3{
+    font-weight: bold;
+}
+.p4{
+    font-weight: bolder;
+}
+.p5{
+    /*Default weight normal*/
+    font-weight: normal;
+    font-style: italic;
+}
+.p6{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.span1{
+    font-family: "Iosevka Charon Mono", monospace;
+    font-size:30px;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.pre1{
+    font: 20px bold italic;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.p7{
+    /*Default text-decoration: none*/
+    text-decoration: none;
+    text-align: left;
+    text-align: right;
+    text-align: center;
+    text-align-last: justify;
+}
+.p8{
+    text-decoration: line-through;
+}
+.p9{
+    text-decoration: overline;
+}
+.p10{
+    text-decoration-line:underline ;
+}
+.p11{
+    text-decoration-line:underline;
+    text-decoration-color:blue;
+    text-decoration-style:wavy;
+    -moz-text-decoration-style: dashed;
+}
+.p12{
+    text-decoration: underline rgb(113, 177, 113) solid;
+    text-transform: uppercase;
+}
+.p13{
+    text-transform: capitalize;
+    text-indent: 100px;
+}
+
+img{
+    width:100px;
+}
+div{
+    width: 300px;
+    background:rgb(136, 74, 74);
+    text-align: right;
+}

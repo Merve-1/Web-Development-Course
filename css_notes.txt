@@ -1,0 +1,100 @@
+CSS Properties
+
+1.  Text Properties
+
+-   font-family: https://fonts.google.com/selection
+-   text-align: Aligns text horizontally (left, right, center, justify)
+-   text-align-last: Aligns the last line (default: auto)
+-   text-decoration: Adds decoration (underline, line-through)
+    -   text-decoration-line
+    -   text-decoration-color
+    -   text-decoration-style
+-   text-transform: Controls capitalization (uppercase, lowercase,
+    capitalize)
+-   text-indent: Indents first line
+-   letter-spacing: Space between letters (e.g. 2em)
+-   word-spacing: Space between words (e.g. 10px)
+-   line-height: Space between lines (e.g. 24px)
+-   white-space: Controls whitespace (default: normal)
+-   overflow-wrap (word-wrap): Breaks long words (break-word)
+
+2.  Background Properties
+
+-   background-color: Sets background color
+-   background-image: Adds background image
+-   background-attachment: Scroll behavior (scroll, fixed)
+-   background-repeat: Image repetition
+-   background-position: Image position
+-   background-size:
+    -   auto (default)
+    -   custom (e.g. 300px 100px)
+
+3.  Box Model Margin (outside space)
+
+-   margin: Defines outer space
+-   margin: auto → centers element (with proper layout)
+-   Avoid using margin:auto with float
+-   Margin collapse: fix with overflow or padding
+
+Padding (inside space) - Space between content and border - No auto, no
+collapsing
+
+Border - border: width style color - border-radius and individual sides
+
+Size - width, height
+
+4.  Position
+
+-   position: static, relative, absolute, fixed, sticky
+-   top, right, bottom, left
+-   z-index
+
+5.  Display
+
+-   block, inline, inline-block, none
+
+Notes: - Inline ignores width/height mostly - Block takes full width
+
+Examples: Block: div, p, h1–h6, section, form 
+          Inline: span, a, img
+
+6.  Display vs Visibility
+
+-   display: none → removes element
+-   visibility: hidden → keeps space
+-   opacity: 0–1 (can animate)
+
+7.  Flexbox Parent:
+
+-   display: flex
+-   justify-content
+-   align-items
+-   align-content
+-   flex-direction
+-   flex-flow
+
+Child: - align-self - flex-grow - flex-shrink - flex-basis - order - gap
+
+8.  Grid Parent:
+
+-   display: grid
+-   grid-template-columns / rows
+-   gap, row-gap, column-gap
+-   justify-content, align-content
+-   grid-template-areas
+
+Child: - grid-area - grid-row / column - span usage - minmax() -
+auto-fit
+
+9.  Responsive Design
+
+-   Media queries for different screen sizes
+
+10. Transitions
+
+-   transition-property
+-   transition-duration
+-   transition-timing-function
+-   transition-delay
+
+Shorthand: transition: property duration timing-function delay;
