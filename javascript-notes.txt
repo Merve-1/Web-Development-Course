@@ -1,0 +1,17 @@
+What is JavaScript?
+- Scripting or Programming Language.
+- Working on the client side (browser) and server side (backend/database).
+- Implement Complex Features on a web page by making it interactive 
+
+What JavaScript Can Do?
+- Dynamically update content. 
+- Manipulating HTML and CSS.
+- Animate Images, Content and create image Gallery.
+- Manipulate and Validate Date.
+- Control Multimedia [Audio, Video, Etc...]
+- Web Browser Games.
+
+Output to Screen: 
+- Window.alert()
+- Document.write()
+- Console.log()
