@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture 4 — The Basics of JavaScript</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --bg2: #13161e;
+    --bg3: #1a1e28;
+    --panel: #1e2330;
+    --border: #2a2f3e;
+    --accent: #f0c040;
+    --accent2: #5de0c0;
+    --accent3: #ff7c5c;
+    --text: #e8eaf0;
+    --muted: #7a8196;
+    --code-bg: #111318;
+    --code-border: #2a3040;
+    --yellow: #f0c040;
+    --teal: #5de0c0;
+    --coral: #ff7c5c;
+    --purple: #a78bfa;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 60px 60px 50px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 20%, rgba(240,192,64,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 10% 90%, rgba(93,224,192,0.08) 0%, transparent 60%),
+      linear-gradient(180deg, #0a0c10 0%, #0d0f14 100%);
+  }
+  .hero-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(240,192,64,0.3);
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 18px;
+    position: relative;
+    width: fit-content;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 1.05;
+    position: relative;
+    letter-spacing: -1px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 16px;
+    position: relative;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── GRID LAYOUT ── */
+  .page-wrapper {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    border-right: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 32px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .sidebar-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 24px 12px;
+    display: block;
+  }
+  .nav-item {
+    display: block;
+    padding: 9px 24px;
+    font-size: 13.5px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: all 0.15s;
+    border-left: 2px solid transparent;
+    font-weight: 400;
+  }
+  .nav-item:hover {
+    color: var(--text);
+    border-left-color: var(--accent);
+    background: rgba(240,192,64,0.04);
+  }
+  .nav-item.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    padding: 52px 60px;
+    max-width: 900px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 70px;
+    animation: fadeUp 0.5s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    min-width: 28px;
+  }
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  /* ── PROSE ── */
+  p { margin-bottom: 16px; color: #c8ccd8; font-size: 15.5px; }
+
+  /* ── CALLOUT ── */
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: rgba(240,192,64,0.06);
+    padding: 14px 20px;
+    border-radius: 0 6px 6px 0;
+    margin: 20px 0;
+    font-size: 14.5px;
+    color: #d4d8e4;
+  }
+  .callout.teal { border-color: var(--teal); background: rgba(93,224,192,0.06); }
+  .callout.coral { border-color: var(--coral); background: rgba(255,124,92,0.06); }
+  .callout.purple { border-color: var(--purple); background: rgba(167,139,250,0.06); }
+  .callout strong { color: var(--accent); }
+  .callout.teal strong { color: var(--teal); }
+  .callout.coral strong { color: var(--coral); }
+  .callout.purple strong { color: var(--purple); }
+
+  /* ── CODE ── */
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 8px;
+    padding: 22px 24px;
+    overflow-x: auto;
+    margin: 20px 0;
+    position: relative;
+  }
+  pre .label {
+    position: absolute;
+    top: 10px; right: 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  code {
+    font-family: 'DM Mono', monospace;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: #c8d8f0;
+  }
+  .kw { color: #a78bfa; }   /* keyword */
+  .str { color: #86efac; }  /* string */
+  .num { color: #f0c040; }  /* number */
+  .cm { color: #4a5568; font-style: italic; }  /* comment */
+  .fn { color: #5de0c0; }   /* function */
+  .prop { color: #ff7c5c; } /* property */
+
+  /* ── TABLES ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  th {
+    background: var(--panel);
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(42,47,62,0.6);
+    color: #c0c4d4;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  td code { font-size: 12.5px; color: var(--teal); }
+
+  /* ── CARD GRID ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .card p { font-size: 13.5px; color: var(--muted); margin: 0; }
+
+  /* ── COMPARISON ── */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .compare-box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+  }
+  .compare-box h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .compare-box.good h4 { color: var(--teal); }
+  .compare-box.bad h4 { color: var(--coral); }
+  .compare-box code { display: block; font-size: 12.5px; line-height: 2; }
+
+  /* ── LIST ── */
+  ul, ol { padding-left: 20px; margin: 12px 0; }
+  li { margin-bottom: 6px; color: #c0c4d4; font-size: 15px; }
+  li strong { color: var(--text); }
+
+  /* ── HORIZONTAL RULE ── */
+  hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+  /* ── INLINE CODE ── */
+  p code, li code, td code {
+    background: rgba(93,224,192,0.08);
+    border: 1px solid rgba(93,224,192,0.15);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 13px;
+    color: var(--teal);
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .page-wrapper { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .main { padding: 30px 22px; }
+    .hero { padding: 40px 24px 36px; }
+    .compare { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">Lecture 4 · Web Programming</div>
+  <h1>The Basics of <em>JavaScript</em></h1>
+  <p class="hero-sub">Origins · Syntax · Primitives · Objects · Arrays · Functions · Control Flow</p>
+</header>
+
+<div class="page-wrapper">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <span class="sidebar-label">Contents</span>
+    <a class="nav-item" href="#origins">1. Origins</a>
+    <a class="nav-item" href="#vs-java">2. JS vs Java</a>
+    <a class="nav-item" href="#uses">3. Uses</a>
+    <a class="nav-item" href="#execution">4. Execution</a>
+    <a class="nav-item" href="#embedding">5. Embedding</a>
+    <a class="nav-item" href="#reserved">6. Reserved Words</a>
+    <a class="nav-item" href="#comments">7. Comments</a>
+    <a class="nav-item" href="#syntax">8. Syntax</a>
+    <a class="nav-item" href="#primitives">9. Primitives</a>
+    <a class="nav-item" href="#variables">10. Variables</a>
+    <a class="nav-item" href="#operators">11. Operators</a>
+    <a class="nav-item" href="#output">12. Screen Output</a>
+    <a class="nav-item" href="#control">13. Control Statements</a>
+    <a class="nav-item" href="#loops">14. Loops</a>
+    <a class="nav-item" href="#objects">15. Objects</a>
+    <a class="nav-item" href="#math-number">16. Math &amp; Number</a>
+    <a class="nav-item" href="#strings">17. String Object</a>
+    <a class="nav-item" href="#dates">18. Date Object</a>
+    <a class="nav-item" href="#arrays">19. Arrays</a>
+    <a class="nav-item" href="#functions">20. Functions</a>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- ──────────────────────────────────── 1. ORIGINS ── -->
+    <section class="section" id="origins">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2>Origins of JavaScript</h2>
+      </div>
+
+      <p>JavaScript was originally created at <strong>Netscape</strong> by Brendan Eich in just 10 days in 1995, initially called <strong>LiveScript</strong>. It was renamed JavaScript when Netscape partnered with Sun Microsystems — primarily as a marketing move to capitalize on the popularity of Java. Today it is standardized by the European Computer Manufacturers Association as <strong>ECMA-262</strong> (ECMAScript).</p>
+
+      <div class="callout">
+        <strong>Key fact:</strong> Despite the name, JavaScript and Java are fundamentally different languages. They share some C-like syntax, but their design philosophies are very different.
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">1994</div>
+          <p>Netscape Navigator dominates the web browser market</p>
+        </div>
+        <div class="card">
+          <div class="card-title">1995</div>
+          <p>Brendan Eich creates LiveScript in 10 days; renamed JavaScript</p>
+        </div>
+        <div class="card">
+          <div class="card-title">1997</div>
+          <p>ECMA-262 standard (ECMAScript 1) is published</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Today</div>
+          <p>Most widely used programming language in the world</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────── 2. JS VS JAVA ── -->
+    <section class="section" id="vs-java">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2>JavaScript vs. Java</h2>
+      </div>
+
+      <p>A common point of confusion: <strong>JavaScript and Java are NOT the same</strong>. They share syntactic similarities (both use curly braces, semicolons, and C-style expressions), but beyond that they are very different.</p>
+
+      <table>
+        <thead>
+          <tr><th>Feature</th><th>JavaScript</th><th>Java</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Typing</td><td>Dynamically typed</td><td>Statically typed</td></tr>
+          <tr><td>Execution</td><td>Interpreted by browser</td><td>Compiled to bytecode, runs on JVM</td></tr>
+          <tr><td>Compilation</td><td>None — source in HTML</td><td>Must be compiled before running</td></tr>
+          <tr><td>Objects</td><td>Prototype-based, very flexible</td><td>Class-based, strict hierarchy</td></tr>
+          <tr><td>Type declarations</td><td>Not required</td><td>Required for every variable</td></tr>
+          <tr><td>Variable type</td><td>Can change at runtime</td><td>Fixed at compile time</td></tr>
+        </tbody>
+      </table>
+
+      <pre><code><span class="cm">// JavaScript — no type declaration needed</span>
+<span class="kw">var</span> x = <span class="num">42</span>;        <span class="cm">// x is a Number</span>
+x = <span class="str">"hello"</span>;      <span class="cm">// now x is a String — totally fine in JS!</span>
+x = <span class="kw">true</span>;         <span class="cm">// now x is Boolean — still fine</span></code></pre>
+
+      <pre><code><span class="cm">// Java — type must be declared and cannot change</span>
+<span class="kw">int</span> x = <span class="num">42</span>;
+x = <span class="str">"hello"</span>;  <span class="cm">// ❌ Compile error! Cannot assign String to int</span></code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 3. USES ── -->
+    <section class="section" id="uses">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2>Uses of JavaScript</h2>
+      </div>
+
+      <p>JavaScript was designed to shift processing load from the server to the client, and to enable dynamic, interactive web pages. Its three primary roles on the client side are:</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">Form Validation</div>
+          <p>Validate user input before sending data to the server, reducing unnecessary network trips.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Event Handling</div>
+          <p>Detect and respond to user actions: clicks, key presses, mouse movements, form submissions.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Dynamic HTML (DOM)</div>
+          <p>Modify page content, structure, and styles on the fly without reloading the page.</p>
+        </div>
+      </div>
+
+      <div class="callout teal">
+        <strong>Example — Client-Side Validation:</strong> Before JavaScript, every form submission required a round trip to the server just to check "did the user enter their email correctly?" JavaScript lets you check this instantly in the browser.
+      </div>
+
+      <pre><code><span class="cm">// Example: validate an email field before submission</span>
+<span class="kw">function</span> <span class="fn">validateEmail</span>() {
+  <span class="kw">var</span> email = document.<span class="fn">getElementById</span>(<span class="str">"emailField"</span>).value;
+  <span class="kw">if</span> (email.length === <span class="num">0</span>) {
+    <span class="fn">alert</span>(<span class="str">"Email cannot be empty!"</span>);
+    <span class="kw">return false</span>;
+  }
+  <span class="kw">if</span> (!email.<span class="fn">includes</span>(<span class="str">"@"</span>)) {
+    <span class="fn">alert</span>(<span class="str">"Please enter a valid email address."</span>);
+    <span class="kw">return false</span>;
+  }
+  <span class="kw">return true</span>;
+}</code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 4. EXECUTION ── -->
+    <section class="section" id="execution">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2>JavaScript Execution</h2>
+      </div>
+
+      <p>JavaScript scripts are executed entirely by the browser. Once the HTML page (including its scripts) is downloaded, <strong>no further communication with the server is needed</strong> for the script to run.</p>
+
+      <ul>
+        <li>Scripts are downloaded with the page and run by the browser's JavaScript engine.</li>
+        <li>No need for the Java Virtual Machine (JVM).</li>
+        <li>Scripts tend to run fast because they execute locally.</li>
+        <li>Scripts <em>can</em> issue new HTTP requests (AJAX, fetch) if needed — but this is optional.</li>
+      </ul>
+
+      <div class="callout coral">
+        <strong>Note:</strong> Modern browsers (Chrome V8, Firefox SpiderMonkey, Safari JavaScriptCore) use JIT (Just-In-Time) compilation to make JavaScript run extremely fast — often close to native speed.
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────── 5. EMBEDDING ── -->
+    <section class="section" id="embedding">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2>Embedding JavaScript in HTML</h2>
+      </div>
+
+      <p>There are <strong>three ways</strong> to include JavaScript in an HTML document. JavaScript is placed inside <code>&lt;script&gt;</code> tags, which can appear in the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code> of the page — or written directly on an HTML element as an attribute.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">1 · Internal Script</div>
+          <p>JavaScript written directly inside the HTML file within <code>&lt;script&gt;</code> tags. Good for short, page-specific code.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">2 · External File</div>
+          <p>JavaScript in a separate <code>.js</code> file, linked via the <code>src</code> attribute. Best practice for larger projects.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">3 · Inline (Event Attribute)</div>
+          <p>JavaScript written directly inside an HTML tag's event attribute, e.g. <code>onclick="..."</code>. Quick but not recommended for anything beyond trivial calls.</p>
+        </div>
+      </div>
+
+      <p><strong>1. Internal Script — JavaScript written directly inside the HTML:</strong></p>
+      <p>This is the most common approach for learning and for small amounts of code. The script is embedded between opening and closing <code>&lt;script&gt;</code> tags anywhere in the HTML document.</p>
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;<span class="kw">html</span>&gt;
+&lt;<span class="kw">head</span>&gt;
+  &lt;<span class="kw">title</span>&gt;My Page&lt;/<span class="kw">title</span>&gt;
+
+  <span class="cm">&lt;!-- Script in &lt;head&gt;: runs BEFORE the page body loads --&gt;</span>
+  &lt;<span class="kw">script</span> type=<span class="str">"text/javascript"</span>&gt;
+    <span class="kw">function</span> <span class="fn">greetUser</span>() {
+      <span class="kw">var</span> name = <span class="fn">prompt</span>(<span class="str">"What is your name?"</span>, <span class="str">"Guest"</span>);
+      <span class="fn">alert</span>(<span class="str">"Welcome, "</span> + name + <span class="str">"!"</span>);
+    }
+  &lt;/<span class="kw">script</span>&gt;
+&lt;/<span class="kw">head</span>&gt;
+
+&lt;<span class="kw">body</span>&gt;
+  &lt;<span class="kw">h1</span>&gt;Hello World&lt;/<span class="kw">h1</span>&gt;
+  &lt;<span class="kw">p</span>&gt;Click the button to be greeted.&lt;/<span class="kw">p</span>&gt;
+  &lt;<span class="kw">button</span> onclick=<span class="str">"greetUser()"</span>&gt;Greet Me&lt;/<span class="kw">button</span>&gt;
+
+  <span class="cm">&lt;!-- Script at end of &lt;body&gt;: runs AFTER the page loads (recommended) --&gt;</span>
+  &lt;<span class="kw">script</span> type=<span class="str">"text/javascript"</span>&gt;
+    document.<span class="fn">write</span>(<span class="str">"&lt;p&gt;Page generated by JavaScript!&lt;/p&gt;"</span>);
+  &lt;/<span class="kw">script</span>&gt;
+&lt;/<span class="kw">body</span>&gt;
+&lt;/<span class="kw">html</span>&gt;</code></pre>
+
+      <p><strong>2. External file — JavaScript in a separate <code>.js</code> file:</strong></p>
+      <pre><code><span class="cm">&lt;!-- myScript.js is a separate file containing only JavaScript --&gt;</span>
+&lt;<span class="kw">script</span> type=<span class="str">"text/javascript"</span> src=<span class="str">"myScript.js"</span>&gt;&lt;/<span class="kw">script</span>&gt;</code></pre>
+      <p>The external file (<code>myScript.js</code>) contains only JavaScript — no HTML tags. This is the industry-standard approach: it separates concerns, allows browser caching (the file is downloaded once and reused), and keeps HTML files clean.</p>
+
+      <p><strong>3. Inline JavaScript — code written directly inside an HTML element's event attribute:</strong></p>
+      <p>The third way is to embed a small piece of JavaScript right inside an HTML tag's event handler attribute such as <code>onclick</code>, <code>onmouseover</code>, or <code>onload</code>. This is called <strong>inline JavaScript</strong>. No <code>&lt;script&gt;</code> tag is needed — the JS runs the moment that event fires on the element.</p>
+
+      <pre><code><span class="cm">&lt;!-- Inline JS directly on the element — onclick fires when button is clicked --&gt;</span>
+&lt;<span class="kw">button</span> onclick=<span class="str">"alert('You clicked me!')"</span>&gt;Click Me&lt;/<span class="kw">button</span>&gt;
+
+&lt;<span class="cm">&lt;!-- Calling a function defined elsewhere --&gt;</span>
+&lt;<span class="kw">button</span> onclick=<span class="str">"greetUser()"</span>&gt;Greet&lt;/<span class="kw">button</span>&gt;
+
+<span class="cm">&lt;!-- onmouseover fires when mouse hovers over the element --&gt;</span>
+&lt;<span class="kw">p</span> onmouseover=<span class="str">"this.style.color='red'"</span>
+   onmouseout=<span class="str">"this.style.color='black'"</span>&gt;Hover over me!&lt;/<span class="kw">p</span>&gt;
+
+<span class="cm">&lt;!-- onload fires when the page finishes loading --&gt;</span>
+&lt;<span class="kw">body</span> onload=<span class="str">"alert('Page ready!')"</span>&gt;</code></pre>
+
+      <div class="compare">
+        <div class="compare-box good">
+          <h4>✅ Use inline for</h4>
+          <code>Simple one-liner calls</code>
+          <code>Quick demos and learning</code>
+          <code>Single-use event hooks</code>
+        </div>
+        <div class="compare-box bad">
+          <h4>❌ Avoid inline for</h4>
+          <code>Multi-line logic</code>
+          <code>Repeated event handlers</code>
+          <code>Production code (hard to maintain)</code>
+        </div>
+      </div>
+
+      <div class="callout teal">
+        <strong>Where to put the &lt;script&gt; tag?</strong> Placing scripts at the <strong>end of the &lt;body&gt;</strong> (just before <code>&lt;/body&gt;</code>) is the recommended practice. This ensures the HTML elements are fully loaded before the script tries to access them. Scripts in <code>&lt;head&gt;</code> run before the page body exists, which can cause errors if the script tries to find an element that hasn't loaded yet.
+      </div>
+
+      <div class="callout">
+        <strong>Hiding from old browsers:</strong> Very old browsers that don't understand <code>&lt;script&gt;</code> would display script text as raw visible content. You could wrap scripts in HTML comments to hide them — though this technique is entirely obsolete today.
+      </div>
+
+      <pre><code>&lt;<span class="kw">script</span> type=<span class="str">"text/javascript"</span>&gt;
+<span class="cm">&lt;!--</span>
+  <span class="cm">// JavaScript code here — hidden from ancient non-JS browsers</span>
+<span class="cm">//--&gt;</span>
+&lt;/<span class="kw">script</span>&gt;</code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 6. RESERVED WORDS ── -->
+    <section class="section" id="reserved">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2>Reserved Words</h2>
+      </div>
+
+      <p>JavaScript has approximately <strong>25 reserved words</strong> (also called keywords) — words that have special meaning in the language and <strong>cannot be used as variable names, function names, or identifiers</strong>. Attempting to use them as identifiers will cause a syntax error.</p>
+
+      <table>
+        <thead>
+          <tr><th>Keyword</th><th>Purpose</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>break</code></td><td>Exits a loop or switch statement early</td><td><code>break;</code></td></tr>
+          <tr><td><code>case</code></td><td>Defines a branch in a switch statement</td><td><code>case 1:</code></td></tr>
+          <tr><td><code>catch</code></td><td>Handles errors in a try-catch block</td><td><code>catch(e) { ... }</code></td></tr>
+          <tr><td><code>continue</code></td><td>Skips the rest of a loop iteration</td><td><code>continue;</code></td></tr>
+          <tr><td><code>debugger</code></td><td>Pauses execution for debugging</td><td><code>debugger;</code></td></tr>
+          <tr><td><code>default</code></td><td>Fallback branch in a switch statement</td><td><code>default: ...</code></td></tr>
+          <tr><td><code>delete</code></td><td>Removes a property from an object</td><td><code>delete obj.x;</code></td></tr>
+          <tr><td><code>do</code></td><td>Starts a do-while loop</td><td><code>do { ... } while(...);</code></td></tr>
+          <tr><td><code>else</code></td><td>Alternative branch for an if statement</td><td><code>else { ... }</code></td></tr>
+          <tr><td><code>finally</code></td><td>Runs after try-catch regardless of outcome</td><td><code>finally { ... }</code></td></tr>
+          <tr><td><code>for</code></td><td>Starts a for loop</td><td><code>for(var i=0; i&lt;10; i++)</code></td></tr>
+          <tr><td><code>function</code></td><td>Declares a function</td><td><code>function myFn() { ... }</code></td></tr>
+          <tr><td><code>if</code></td><td>Starts a conditional statement</td><td><code>if (x &gt; 0) { ... }</code></td></tr>
+          <tr><td><code>in</code></td><td>Tests if a property exists in an object</td><td><code>for (key in obj)</code></td></tr>
+          <tr><td><code>instanceof</code></td><td>Tests if an object is an instance of a type</td><td><code>x instanceof Array</code></td></tr>
+          <tr><td><code>new</code></td><td>Creates a new object instance</td><td><code>var d = new Date();</code></td></tr>
+          <tr><td><code>return</code></td><td>Returns a value from a function</td><td><code>return result;</code></td></tr>
+          <tr><td><code>switch</code></td><td>Starts a switch statement</td><td><code>switch(day) { ... }</code></td></tr>
+          <tr><td><code>this</code></td><td>Refers to the current object context</td><td><code>this.name = "Alice";</code></td></tr>
+          <tr><td><code>throw</code></td><td>Throws an exception/error</td><td><code>throw new Error("oops");</code></td></tr>
+          <tr><td><code>try</code></td><td>Wraps code that might throw an error</td><td><code>try { ... }</code></td></tr>
+          <tr><td><code>typeof</code></td><td>Returns the type of a value as a string</td><td><code>typeof 42 → "number"</code></td></tr>
+          <tr><td><code>var</code></td><td>Declares a variable (function-scoped)</td><td><code>var x = 5;</code></td></tr>
+          <tr><td><code>void</code></td><td>Evaluates an expression and returns undefined</td><td><code>void 0</code></td></tr>
+          <tr><td><code>while</code></td><td>Starts a while or do-while loop</td><td><code>while (x &gt; 0) { ... }</code></td></tr>
+          <tr><td><code>with</code></td><td>Extends the scope chain (deprecated)</td><td><code>with(obj) { ... }</code></td></tr>
+        </tbody>
+      </table>
+
+      <p>In addition to the 25 reserved words above, JavaScript also reserves certain words for <strong>future use</strong>. You cannot use these as identifiers either:</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">Future Reserved Words</div>
+          <p><code>interface</code> &nbsp; <code>private</code> &nbsp; <code>public</code> &nbsp; <code>enum</code> &nbsp; <code>protected</code> &nbsp; <code>static</code> &nbsp; <code>implements</code> &nbsp; <code>let</code> &nbsp; <code>package</code> &nbsp; <code>yield</code></p>
+        </div>
+      </div>
+
+      <div class="callout coral">
+        <strong>Common mistake:</strong> Using reserved words as variable names causes a syntax error immediately.
+      </div>
+
+      <pre><code><span class="cm">// ❌ These will all cause syntax errors!</span>
+<span class="kw">var</span> if = <span class="num">5</span>;           <span class="cm">// 'if' is reserved</span>
+<span class="kw">var</span> return = <span class="str">"hi"</span>;    <span class="cm">// 'return' is reserved</span>
+<span class="kw">var</span> function = <span class="kw">true</span>;  <span class="cm">// 'function' is reserved</span>
+
+<span class="cm">// ✅ Use descriptive names that aren't reserved:</span>
+<span class="kw">var</span> condition = <span class="num">5</span>;
+<span class="kw">var</span> result = <span class="str">"hi"</span>;
+<span class="kw">var</span> isActive = <span class="kw">true</span>;</code></pre>
+
+      <div class="callout teal">
+        <strong>The <code>new</code> keyword — when and why:</strong> <code>new</code> is used to create a new <em>instance</em> of an object. When you write <code>new Date()</code>, JavaScript creates a fresh Date object in memory, sets up all its methods and properties, and returns a reference to it. Without <code>new</code>, calling <code>Date()</code> as a plain function just returns a string. You use <code>new</code> with any constructor function — built-in ones like <code>Date</code>, <code>Array</code>, <code>Object</code>, or your own custom constructor functions.
+      </div>
+
+      <pre><code><span class="cm">// new creates a fresh object instance in memory</span>
+<span class="kw">var</span> today   = <span class="kw">new</span> <span class="fn">Date</span>();        <span class="cm">// new Date object</span>
+<span class="kw">var</span> list    = <span class="kw">new</span> <span class="fn">Array</span>(<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>); <span class="cm">// new Array object</span>
+<span class="kw">var</span> blank   = <span class="kw">new</span> <span class="fn">Object</span>();      <span class="cm">// new generic object</span>
+<span class="kw">var</span> wrapped = <span class="kw">new</span> <span class="fn">Number</span>(<span class="num">42</span>);   <span class="cm">// new Number wrapper object</span>
+
+<span class="cm">// Without new — just a plain function call, NOT an object</span>
+<span class="kw">var</span> notObj = <span class="fn">Date</span>();            <span class="cm">// returns a string, not a Date object!</span>
+console.<span class="fn">log</span>(<span class="kw">typeof</span> notObj);     <span class="cm">// "string"</span>
+console.<span class="fn">log</span>(<span class="kw">typeof</span> today);      <span class="cm">// "object"</span></code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 7. COMMENTS ── -->
+    <section class="section" id="comments">
+      <div class="section-header">
+        <span class="section-num">07</span>
+        <h2>Comments in JavaScript</h2>
+      </div>
+
+      <p>Comments are lines (or parts of lines) that the JavaScript interpreter completely ignores. They exist purely for human readers — to explain code, leave notes, or temporarily disable code during debugging.</p>
+
+      <p><strong>Single-line comment — <code>//</code></strong></p>
+      <p>Everything from <code>//</code> to the end of that line is ignored. Use for short explanations of a single statement.</p>
+      <pre><code><span class="cm">// This entire line is a comment — the interpreter skips it</span>
+<span class="kw">var</span> price = <span class="num">9.99</span>;   <span class="cm">// This comment is at the end of a code line</span>
+<span class="kw">var</span> tax   = <span class="num">0.08</span>;   <span class="cm">// 8% tax rate</span>
+<span class="kw">var</span> total = price * (<span class="num">1</span> + tax); <span class="cm">// calculate total with tax</span></code></pre>
+
+      <p><strong>Multi-line comment — <code>/* ... */</code></strong></p>
+      <p>Everything between <code>/*</code> and <code>*/</code> is ignored, even if it spans many lines. Use for longer explanations, function documentation, or commenting out big blocks of code.</p>
+      <pre><code><span class="cm">/*
+  This is a multi-line comment.
+  It can span as many lines as needed.
+  The interpreter ignores everything in here.
+*/</span>
+<span class="kw">var</span> x = <span class="num">10</span>;
+
+<span class="cm">/*
+  Function: calculateArea
+  Purpose:  Computes the area of a rectangle
+  Params:   width  — the width of the rectangle (Number)
+            height — the height of the rectangle (Number)
+  Returns:  The area as a Number
+*/</span>
+<span class="kw">function</span> <span class="fn">calculateArea</span>(width, height) {
+  <span class="kw">return</span> width * height;
+}</code></pre>
+
+      <p><strong>Commenting out code for debugging:</strong></p>
+      <p>A very common practice is to temporarily "comment out" a line to disable it without deleting it. This is useful when debugging to isolate which line causes a problem.</p>
+      <pre><code><span class="kw">var</span> result = <span class="num">0</span>;
+result += <span class="num">10</span>;
+<span class="cm">// result += 20;   ← disabled temporarily to test without this line</span>
+result += <span class="num">30</span>;
+console.<span class="fn">log</span>(result); <span class="cm">// 40 (instead of 60)</span></code></pre>
+
+      <div class="callout coral">
+        <strong>Nesting caution:</strong> You <strong>cannot</strong> nest multi-line comments inside each other. <code>/* outer /* inner */ still inside? */</code> — the first <code>*/</code> closes the entire comment, leaving <code>still inside? */</code> as broken code.
+      </div>
+
+      <pre><code><span class="cm">/* ❌ Nested multi-line comment — BROKEN */</span>
+<span class="cm">/*
+  var x = 1;
+  /* var y = 2; */</span>   <span class="cm">← comment ends HERE, not at the outer */</span>
+  <span class="kw">var</span> z = <span class="num">3</span>;          <span class="cm">← this line is now interpreted as code!</span>
+<span class="cm">*/</span>                   <span class="cm">← this causes a syntax error</span></code></pre>
+
+      <div class="callout teal">
+        <strong>Best practice:</strong> Write comments that explain <em>why</em>, not <em>what</em>. The code itself shows <em>what</em> is happening. Comments should explain your reasoning, assumptions, or tricky edge cases that would confuse someone reading the code later.
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────── 8. SYNTAX ── -->
+    <section class="section" id="syntax">
+      <div class="section-header">
+        <span class="section-num">08</span>
+        <h2>Syntactic Characteristics</h2>
+      </div>
+
+      <p>JavaScript's syntax comes from C/Java but with important differences. Here are the key rules:</p>
+
+      <table>
+        <thead>
+          <tr><th>Rule</th><th>Detail</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Identifiers</td>
+            <td>Start with letter or underscore, followed by letters, digits, or underscores</td>
+            <td><code>myVar</code>, <code>_count</code>, <code>user2</code></td>
+          </tr>
+          <tr>
+            <td>Case sensitivity</td>
+            <td>JavaScript is case sensitive</td>
+            <td><code>myVar ≠ myvar ≠ MYVAR</code></td>
+          </tr>
+          <tr>
+            <td>Comments</td>
+            <td>Single-line <code>//</code> and multi-line <code>/* ... */</code></td>
+            <td><code>// this is a comment</code></td>
+          </tr>
+          <tr>
+            <td>Reserved words</td>
+            <td>~25 keywords you cannot use as identifiers</td>
+            <td><code>if</code>, <code>for</code>, <code>while</code>, <code>function</code></td>
+          </tr>
+          <tr>
+            <td>Future reserved</td>
+            <td>Words reserved for future use</td>
+            <td><code>interface</code>, <code>private</code>, <code>public</code>, <code>enum</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <pre><code><span class="cm">// ✅ Valid identifiers</span>
+<span class="kw">var</span> firstName = <span class="str">"Alice"</span>;
+<span class="kw">var</span> _privateVar = <span class="num">10</span>;
+<span class="kw">var</span> user2024 = <span class="str">"Bob"</span>;
+
+<span class="cm">// ❌ Invalid identifiers</span>
+<span class="kw">var</span> 2users = <span class="str">"error"</span>;   <span class="cm">// cannot start with digit</span>
+<span class="kw">var</span> my-var = <span class="num">5</span>;         <span class="cm">// hyphen not allowed (use camelCase)</span>
+<span class="kw">var</span> if = <span class="str">"reserved"</span>;   <span class="cm">// 'if' is a reserved word</span></code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 9. PRIMITIVES ── -->
+    <section class="section" id="primitives">
+      <div class="section-header">
+        <span class="section-num">09</span>
+        <h2>Primitives</h2>
+      </div>
+
+      <p>All primitive values in JavaScript have one of five types. Unlike objects, primitives are simple, immutable values.</p>
+
+      <table>
+        <thead>
+          <tr><th>Type</th><th>Description</th><th>Examples</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>Number</code></td><td>All numbers stored as 64-bit floating point (double)</td><td><code>42</code>, <code>3.14</code>, <code>-7</code>, <code>NaN</code>, <code>Infinity</code></td></tr>
+          <tr><td><code>String</code></td><td>Sequence of characters, delimited by ' or "</td><td><code>"hello"</code>, <code>'world'</code></td></tr>
+          <tr><td><code>Boolean</code></td><td>Logical true or false</td><td><code>true</code>, <code>false</code></td></tr>
+          <tr><td><code>Undefined</code></td><td>Variable declared but not yet assigned</td><td><code>undefined</code></td></tr>
+          <tr><td><code>Null</code></td><td>Intentional absence of a value</td><td><code>null</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <strong>Important:</strong> All numeric values — integers, decimals, large numbers — are stored as <strong>double-precision floating point</strong>. There is no separate integer type.
+      </div>
+
+      <pre><code><span class="kw">var</span> age = <span class="num">25</span>;               <span class="cm">// Number</span>
+<span class="kw">var</span> pi = <span class="num">3.14159</span>;           <span class="cm">// Number (same type!)</span>
+<span class="kw">var</span> name = <span class="str">"Alice"</span>;          <span class="cm">// String</span>
+<span class="kw">var</span> greeting = <span class="str">'Hello!'</span>;    <span class="cm">// String (single quotes also OK)</span>
+<span class="kw">var</span> isLoggedIn = <span class="kw">true</span>;      <span class="cm">// Boolean</span>
+<span class="kw">var</span> notYetDefined;           <span class="cm">// Undefined (no value assigned)</span>
+<span class="kw">var</span> emptyValue = <span class="kw">null</span>;      <span class="cm">// Null (explicitly no value)</span>
+
+<span class="cm">// Wrapper objects (capital letter) give primitives methods:</span>
+<span class="kw">var</span> numObj = <span class="kw">new</span> <span class="fn">Number</span>(<span class="num">42</span>);
+<span class="kw">var</span> strObj = <span class="kw">new</span> <span class="fn">String</span>(<span class="str">"hello"</span>);
+<span class="kw">var</span> boolObj = <span class="kw">new</span> <span class="fn">Boolean</span>(<span class="kw">true</span>);</code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 10. VARIABLES ── -->
+    <section class="section" id="variables">
+      <div class="section-header">
+        <span class="section-num">10</span>
+        <h2>Declaring Variables</h2>
+      </div>
+
+      <p>JavaScript is <strong>dynamically typed</strong> — a variable's type is determined at runtime by whatever value it holds. Variables can be declared with <code>var</code> or <code>let</code>.</p>
+
+      <div class="compare">
+        <div class="compare-box good">
+          <h4>var — function scoped</h4>
+          <code><span class="kw">var</span> x = <span class="num">10</span>;</code>
+          <code><span class="kw">var</span> msg = <span class="str">"hi"</span>;</code>
+          <code>Accessible anywhere in function</code>
+        </div>
+        <div class="compare-box bad">
+          <h4>let — block scoped</h4>
+          <code><span class="kw">let</span> x = <span class="num">10</span>;</code>
+          <code><span class="kw">let</span> msg = <span class="str">"hi"</span>;</code>
+          <code>Only accessible in its block {}</code>
+        </div>
+      </div>
+
+      <pre><code><span class="cm">// var: function scope — can leak out of blocks</span>
+<span class="kw">if</span> (<span class="kw">true</span>) {
+  <span class="kw">var</span> x = <span class="num">5</span>;    <span class="cm">// accessible OUTSIDE the if block!</span>
+}
+console.<span class="fn">log</span>(x); <span class="cm">// 5 — works with var</span>
+
+<span class="cm">// let: block scope — contained within {}</span>
+<span class="kw">if</span> (<span class="kw">true</span>) {
+  <span class="kw">let</span> y = <span class="num">10</span>;   <span class="cm">// only accessible INSIDE this block</span>
+}
+console.<span class="fn">log</span>(y); <span class="cm">// ❌ ReferenceError — y is not defined</span>
+
+<span class="cm">// Multiple declarations in one statement</span>
+<span class="kw">var</span> sum = <span class="num">0</span>,
+    today = <span class="str">"Monday"</span>,
+    flag = <span class="kw">false</span>;</code></pre>
+
+      <div class="callout teal">
+        <strong>Dynamic typing example:</strong> The same variable can hold different types at different times.
+      </div>
+      <pre><code><span class="kw">var</span> data = <span class="num">42</span>;
+console.<span class="fn">log</span>(<span class="kw">typeof</span> data);  <span class="cm">// "number"</span>
+
+data = <span class="str">"forty-two"</span>;
+console.<span class="fn">log</span>(<span class="kw">typeof</span> data);  <span class="cm">// "string"</span>
+
+data = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+console.<span class="fn">log</span>(<span class="kw">typeof</span> data);  <span class="cm">// "object"</span></code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 11. OPERATORS ── -->
+    <section class="section" id="operators">
+      <div class="section-header">
+        <span class="section-num">11</span>
+        <h2>Numeric Operators</h2>
+      </div>
+
+      <p>JavaScript supports all standard arithmetic operators, plus a few extras:</p>
+
+      <table>
+        <thead>
+          <tr><th>Operator</th><th>Meaning</th><th>Example</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>+</code></td><td>Addition</td><td><code>5 + 3</code></td><td><code>8</code></td></tr>
+          <tr><td><code>-</code></td><td>Subtraction</td><td><code>10 - 4</code></td><td><code>6</code></td></tr>
+          <tr><td><code>*</code></td><td>Multiplication</td><td><code>6 * 7</code></td><td><code>42</code></td></tr>
+          <tr><td><code>/</code></td><td>Division</td><td><code>10 / 4</code></td><td><code>2.5</code></td></tr>
+          <tr><td><code>%</code></td><td>Modulus (remainder)</td><td><code>10 % 3</code></td><td><code>1</code></td></tr>
+          <tr><td><code>**</code></td><td>Exponentiation</td><td><code>2 ** 8</code></td><td><code>256</code></td></tr>
+          <tr><td><code>++</code></td><td>Increment</td><td><code>x++</code></td><td>Adds 1 to x</td></tr>
+          <tr><td><code>--</code></td><td>Decrement</td><td><code>x--</code></td><td>Subtracts 1 from x</td></tr>
+        </tbody>
+      </table>
+
+      <pre><code><span class="kw">var</span> a = <span class="num">17</span>, b = <span class="num">5</span>;
+
+console.<span class="fn">log</span>(a + b);   <span class="cm">// 22</span>
+console.<span class="fn">log</span>(a - b);   <span class="cm">// 12</span>
+console.<span class="fn">log</span>(a * b);   <span class="cm">// 85</span>
+console.<span class="fn">log</span>(a / b);   <span class="cm">// 3.4  (not integer division!)</span>
+console.<span class="fn">log</span>(a % b);   <span class="cm">// 2   (17 = 3*5 + 2)</span>
+console.<span class="fn">log</span>(<span class="num">2</span> ** <span class="num">10</span>);  <span class="cm">// 1024</span>
+
+<span class="kw">var</span> counter = <span class="num">0</span>;
+counter++;              <span class="cm">// counter is now 1</span>
+counter++;              <span class="cm">// counter is now 2</span>
+counter--;              <span class="cm">// counter is now 1 again</span></code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 12. OUTPUT ── -->
+    <section class="section" id="output">
+      <div class="section-header">
+        <span class="section-num">12</span>
+        <h2>Screen Output</h2>
+      </div>
+
+      <p>JavaScript has several ways to display output to the user. The most common involve the <strong>Document</strong> object and the <strong>Window</strong> object.</p>
+
+      <p><strong>document.write()</strong> — Writes HTML directly into the page:</p>
+      <pre><code>document.<span class="fn">write</span>(<span class="str">"Answer: "</span> + result + <span class="str">"&lt;br /&gt;"</span>);
+<span class="cm">// The parameter can include any valid HTML tags</span></code></pre>
+
+      <div class="callout coral">
+        <strong>Warning:</strong> Calling <code>document.write()</code> after the page has loaded will <em>overwrite</em> the entire page. Prefer <code>innerHTML</code> for dynamic updates.
+      </div>
+
+      <hr>
+
+      <p><strong>alert()</strong> — Displays a message dialog box (plain text only, no HTML):</p>
+      <pre><code><span class="fn">alert</span>(<span class="str">"The sum is: "</span> + sum);
+<span class="cm">// Shows a popup with an OK button. Execution pauses until OK is clicked.</span></code></pre>
+
+      <p><strong>confirm()</strong> — Asks yes/no question, returns a boolean:</p>
+      <pre><code><span class="kw">var</span> answer = <span class="fn">confirm</span>(<span class="str">"Do you want to continue this download?"</span>);
+<span class="kw">if</span> (answer) {
+  <span class="cm">// User clicked OK</span>
+  startDownload();
+} <span class="kw">else</span> {
+  <span class="cm">// User clicked Cancel</span>
+  <span class="fn">alert</span>(<span class="str">"Download cancelled."</span>);
+}</code></pre>
+
+      <p><strong>prompt()</strong> — Gets a string input from the user:</p>
+      <pre><code><span class="kw">var</span> name = <span class="fn">prompt</span>(<span class="str">"What is your name?"</span>, <span class="str">"Anonymous"</span>);
+<span class="cm">// Second argument is the default value if user clicks OK without typing</span>
+<span class="cm">// Returns null if user clicks Cancel</span>
+
+<span class="kw">if</span> (name !== <span class="kw">null</span>) {
+  <span class="fn">alert</span>(<span class="str">"Hello, "</span> + name + <span class="str">"!"</span>);
+}</code></pre>
+
+      <p><strong>console.log()</strong> — Writes to the browser's developer console (not visible to end users):</p>
+      <pre><code>console.<span class="fn">log</span>(<span class="str">"Debug info:"</span>, someVariable);
+console.<span class="fn">error</span>(<span class="str">"Something went wrong!"</span>);
+console.<span class="fn">warn</span>(<span class="str">"This might be a problem"</span>);</code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 13. CONTROL ── -->
+    <section class="section" id="control">
+      <div class="section-header">
+        <span class="section-num">13</span>
+        <h2>Control Statements</h2>
+      </div>
+
+      <p>JavaScript control expressions come in three forms:</p>
+
+      <p><strong>1. Primitive values as conditions:</strong></p>
+      <ul>
+        <li>A string is <strong>truthy</strong> unless it is empty (<code>""</code>) or <code>"0"</code></li>
+        <li>A number is <strong>truthy</strong> unless it is <code>0</code> or <code>NaN</code></li>
+        <li><code>null</code>, <code>undefined</code>, <code>false</code> are all falsy</li>
+      </ul>
+
+      <p><strong>2. Relational Expressions:</strong></p>
+      <table>
+        <thead>
+          <tr><th>Operator</th><th>Meaning</th><th>Note</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>==</code></td><td>Equal (with coercion)</td><td><code>"5" == 5</code> → <code>true</code></td></tr>
+          <tr><td><code>!=</code></td><td>Not equal (with coercion)</td><td><code>"5" != 5</code> → <code>false</code></td></tr>
+          <tr><td><code>===</code></td><td>Strict equal (no coercion)</td><td><code>"5" === 5</code> → <code>false</code></td></tr>
+          <tr><td><code>!==</code></td><td>Strict not equal (no coercion)</td><td><code>"5" !== 5</code> → <code>true</code></td></tr>
+          <tr><td><code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code></td><td>Comparison operators</td><td>Operands coerced if needed</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout teal">
+        <strong>Best practice:</strong> Prefer <code>===</code> and <code>!==</code> over <code>==</code> and <code>!=</code> to avoid unexpected type coercion bugs.
+      </div>
+
+      <pre><code><span class="cm">// == vs === examples</span>
+<span class="num">0</span> == <span class="kw">false</span>       <span class="cm">// true  (both falsy, coercion happens)</span>
+<span class="num">0</span> === <span class="kw">false</span>      <span class="cm">// false (different types, no coercion)</span>
+<span class="str">""</span> == <span class="kw">false</span>      <span class="cm">// true  (both falsy)</span>
+<span class="str">""</span> === <span class="kw">false</span>     <span class="cm">// false</span>
+<span class="kw">null</span> == <span class="kw">undefined</span>  <span class="cm">// true  (special case)</span>
+<span class="kw">null</span> === <span class="kw">undefined</span> <span class="cm">// false</span></code></pre>
+
+      <p><strong>if / else:</strong></p>
+      <pre><code><span class="kw">if</span> (a > b) {
+  document.<span class="fn">write</span>(<span class="str">"a is greater than b&lt;br /&gt;"</span>);
+} <span class="kw">else</span> {
+  a = b;
+  document.<span class="fn">write</span>(<span class="str">"a was not greater, now they are equal&lt;br /&gt;"</span>);
+}</code></pre>
+
+      <p><strong>switch statement:</strong></p>
+      <pre><code><span class="kw">var</span> day = <span class="num">3</span>;
+<span class="kw">switch</span> (day) {
+  <span class="kw">case</span> <span class="num">1</span>: document.<span class="fn">write</span>(<span class="str">"Monday"</span>);    <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">2</span>: document.<span class="fn">write</span>(<span class="str">"Tuesday"</span>);   <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">3</span>: document.<span class="fn">write</span>(<span class="str">"Wednesday"</span>); <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">4</span>: document.<span class="fn">write</span>(<span class="str">"Thursday"</span>);  <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">5</span>: document.<span class="fn">write</span>(<span class="str">"Friday"</span>);    <span class="kw">break</span>;
+  <span class="kw">default</span>: document.<span class="fn">write</span>(<span class="str">"Weekend!"</span>);
+}</code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 14. LOOPS ── -->
+    <section class="section" id="loops">
+      <div class="section-header">
+        <span class="section-num">14</span>
+        <h2>Loops</h2>
+      </div>
+
+      <p>JavaScript has three classic loop types plus a useful <code>for...in</code> loop for iterating over object properties.</p>
+
+      <p><strong>while loop:</strong></p>
+      <pre><code><span class="kw">var</span> count = <span class="num">1</span>;
+<span class="kw">while</span> (count <= <span class="num">5</span>) {
+  document.<span class="fn">write</span>(<span class="str">"Count: "</span> + count + <span class="str">"&lt;br /&gt;"</span>);
+  count++;
+}
+<span class="cm">// Prints: Count: 1, Count: 2, ... Count: 5</span></code></pre>
+
+      <p><strong>for loop:</strong></p>
+      <pre><code><span class="cm">// Sum numbers 1 to 100</span>
+<span class="kw">var</span> sum = <span class="num">0</span>;
+<span class="kw">for</span> (<span class="kw">var</span> i = <span class="num">1</span>; i <= <span class="num">100</span>; i++) {
+  sum += i;
+}
+console.<span class="fn">log</span>(sum); <span class="cm">// 5050</span></code></pre>
+
+      <p><strong>do...while loop</strong> — body always executes at least once:</p>
+      <pre><code><span class="kw">var</span> input;
+<span class="kw">do</span> {
+  input = <span class="fn">prompt</span>(<span class="str">"Enter a positive number:"</span>, <span class="str">""</span>);
+} <span class="kw">while</span> (input <= <span class="num">0</span> || <span class="fn">isNaN</span>(input));
+<span class="cm">// Keeps asking until a valid positive number is entered</span></code></pre>
+
+      <p><strong>for...in loop</strong> — iterates over the keys of an object:</p>
+      <pre><code><span class="kw">var</span> person = { name: <span class="str">"Alice"</span>, age: <span class="num">30</span>, city: <span class="str">"Boston"</span> };
+
+<span class="kw">for</span> (<span class="kw">var</span> key <span class="kw">in</span> person) {
+  document.<span class="fn">write</span>(key + <span class="str">": "</span> + person[key] + <span class="str">"&lt;br /&gt;"</span>);
+}
+<span class="cm">// name: Alice</span>
+<span class="cm">// age: 30</span>
+<span class="cm">// city: Boston</span></code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 15. OBJECTS ── -->
+    <section class="section" id="objects">
+      <div class="section-header">
+        <span class="section-num">15</span>
+        <h2>Objects</h2>
+      </div>
+
+      <p>JavaScript objects are collections of key-value pairs (properties). They are extremely flexible — properties can be added, modified, or deleted at any time.</p>
+
+      <p><strong>Creating objects:</strong></p>
+      <pre><code><span class="cm">// Method 1: Object constructor</span>
+<span class="kw">var</span> myAirplane = <span class="kw">new</span> <span class="fn">Object</span>();
+myAirplane.<span class="prop">make</span>  = <span class="str">"Cessna"</span>;
+myAirplane.<span class="prop">model</span> = <span class="str">"Centurion"</span>;
+myAirplane.<span class="prop">year</span>  = <span class="num">1985</span>;
+
+<span class="cm">// Method 2: Object literal (preferred, more concise)</span>
+<span class="kw">var</span> car = {
+  make:  <span class="str">"Toyota"</span>,
+  model: <span class="str">"Camry"</span>,
+  year:  <span class="num">2022</span>,
+  color: <span class="str">"blue"</span>
+};</code></pre>
+
+      <p><strong>Accessing properties — two ways:</strong></p>
+      <pre><code><span class="cm">// Dot notation (most common)</span>
+console.<span class="fn">log</span>(car.<span class="prop">make</span>);         <span class="cm">// "Toyota"</span>
+
+<span class="cm">// Bracket notation (useful when key is dynamic)</span>
+<span class="kw">var</span> prop = <span class="str">"model"</span>;
+console.<span class="fn">log</span>(car[prop]);         <span class="cm">// "Camry"</span>
+
+<span class="cm">// Deleting a property</span>
+<span class="kw">delete</span> car.<span class="prop">color</span>;
+console.<span class="fn">log</span>(car.<span class="prop">color</span>);       <span class="cm">// undefined</span></code></pre>
+
+      <p><strong>Nested objects:</strong></p>
+      <pre><code><span class="kw">var</span> student = {
+  name: <span class="str">"Bob"</span>,
+  grades: {
+    math:    <span class="num">92</span>,
+    english: <span class="num">88</span>,
+    science: <span class="num">95</span>
+  },
+  address: {
+    city:  <span class="str">"Cambridge"</span>,
+    state: <span class="str">"MA"</span>
+  }
+};
+
+console.<span class="fn">log</span>(student.<span class="prop">grades</span>.<span class="prop">math</span>);    <span class="cm">// 92</span>
+console.<span class="fn">log</span>(student.<span class="prop">address</span>.<span class="prop">city</span>);  <span class="cm">// "Cambridge"</span></code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 16. MATH & NUMBER OBJECTS ── -->
+    <section class="section" id="math-number">
+      <div class="section-header">
+        <span class="section-num">16</span>
+        <h2>Math &amp; Number Objects</h2>
+      </div>
+
+      <p>You're right to ask — <code>Math</code> and <code>Number</code> are both <strong>built-in JavaScript objects</strong>, just like <code>String</code>, <code>Date</code>, and <code>Array</code>. They belong here in the objects group. The difference is that <code>Math</code> is a <em>singleton static object</em> — you never use <code>new</code> with it, because it isn't meant to be instantiated. <code>Number</code>, on the other hand, can be used with <code>new</code> to create a Number wrapper object, though in practice you mostly use its static properties directly.</p>
+
+      <div class="compare">
+        <div class="compare-box good">
+          <h4>Math — never use new</h4>
+          <code>Math.floor(4.7)  <span class="cm">// ✅ correct</span></code>
+          <code><span class="kw">new</span> Math()       <span class="cm">// ❌ TypeError!</span></code>
+          <code>Math is a static singleton object</code>
+        </div>
+        <div class="compare-box bad">
+          <h4>Number — rarely use new</h4>
+          <code>Number.MAX_VALUE  <span class="cm">// ✅ static property</span></code>
+          <code><span class="kw">new</span> <span class="fn">Number</span>(42)  <span class="cm">// creates wrapper object</span></code>
+          <code>Prefer primitive <code>42</code> over <code>new Number(42)</code></code>
+        </div>
+      </div>
+
+      <p><strong>The Math Object</strong> — provides mathematical constants and functions as static properties. No instantiation needed, just call them directly:</p>
+
+      <table>
+        <thead>
+          <tr><th>Method / Property</th><th>Description</th><th>Example</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>Math.PI</code></td><td>Value of π</td><td><code>Math.PI</code></td><td><code>3.14159...</code></td></tr>
+          <tr><td><code>Math.E</code></td><td>Euler's number (base of natural log)</td><td><code>Math.E</code></td><td><code>2.71828...</code></td></tr>
+          <tr><td><code>Math.floor(x)</code></td><td>Rounds down to nearest integer</td><td><code>Math.floor(4.9)</code></td><td><code>4</code></td></tr>
+          <tr><td><code>Math.ceil(x)</code></td><td>Rounds up to nearest integer</td><td><code>Math.ceil(4.1)</code></td><td><code>5</code></td></tr>
+          <tr><td><code>Math.round(x)</code></td><td>Rounds to nearest integer</td><td><code>Math.round(4.5)</code></td><td><code>5</code></td></tr>
+          <tr><td><code>Math.abs(x)</code></td><td>Absolute value</td><td><code>Math.abs(-7)</code></td><td><code>7</code></td></tr>
+          <tr><td><code>Math.sqrt(x)</code></td><td>Square root</td><td><code>Math.sqrt(25)</code></td><td><code>5</code></td></tr>
+          <tr><td><code>Math.max(a, b, ...)</code></td><td>Largest of the arguments</td><td><code>Math.max(3, 8, 1)</code></td><td><code>8</code></td></tr>
+          <tr><td><code>Math.min(a, b, ...)</code></td><td>Smallest of the arguments</td><td><code>Math.min(3, 8, 1)</code></td><td><code>1</code></td></tr>
+          <tr><td><code>Math.pow(x, y)</code></td><td>x raised to the power y</td><td><code>Math.pow(2, 8)</code></td><td><code>256</code></td></tr>
+          <tr><td><code>Math.random()</code></td><td>Random float in [0, 1)</td><td><code>Math.random()</code></td><td><code>0.7342...</code></td></tr>
+          <tr><td><code>Math.sin(x)</code></td><td>Sine of x (in radians)</td><td><code>Math.sin(0)</code></td><td><code>0</code></td></tr>
+          <tr><td><code>Math.cos(x)</code></td><td>Cosine of x (in radians)</td><td><code>Math.cos(0)</code></td><td><code>1</code></td></tr>
+          <tr><td><code>Math.log(x)</code></td><td>Natural logarithm (base e)</td><td><code>Math.log(Math.E)</code></td><td><code>1</code></td></tr>
+        </tbody>
+      </table>
+
+      <pre><code><span class="cm">// Random integer between 1 and 10 (inclusive)</span>
+<span class="kw">var</span> rand = Math.<span class="fn">floor</span>(Math.<span class="fn">random</span>() * <span class="num">10</span>) + <span class="num">1</span>;
+
+<span class="cm">// Circle area: π × r²</span>
+<span class="kw">var</span> radius = <span class="num">5</span>;
+<span class="kw">var</span> area = Math.<span class="prop">PI</span> * Math.<span class="fn">pow</span>(radius, <span class="num">2</span>);
+console.<span class="fn">log</span>(<span class="str">"Area: "</span> + area.<span class="fn">toFixed</span>(<span class="num">2</span>));  <span class="cm">// "Area: 78.54"</span>
+
+<span class="cm">// Hypotenuse of a right triangle: √(a² + b²)</span>
+<span class="kw">var</span> hyp = Math.<span class="fn">sqrt</span>(Math.<span class="fn">pow</span>(<span class="num">3</span>, <span class="num">2</span>) + Math.<span class="fn">pow</span>(<span class="num">4</span>, <span class="num">2</span>));
+console.<span class="fn">log</span>(hyp);  <span class="cm">// 5</span>
+
+<span class="cm">// Clamp a value between a min and max</span>
+<span class="kw">var</span> clamped = Math.<span class="fn">min</span>(Math.<span class="fn">max</span>(userInput, <span class="num">0</span>), <span class="num">100</span>);</code></pre>
+
+      <p><strong>The Number Object</strong> — has special constant properties that describe the limits of JavaScript's number system:</p>
+
+      <table>
+        <thead>
+          <tr><th>Property</th><th>Description</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>Number.MAX_VALUE</code></td><td>Largest representable finite number</td><td>~1.8 × 10³⁰⁸</td></tr>
+          <tr><td><code>Number.MIN_VALUE</code></td><td>Smallest positive number (closest to 0)</td><td>~5 × 10⁻³²⁴</td></tr>
+          <tr><td><code>Number.NaN</code></td><td>Not a Number — same as the global <code>NaN</code></td><td><code>NaN</code></td></tr>
+          <tr><td><code>Number.POSITIVE_INFINITY</code></td><td>Positive overflow (e.g. 1/0)</td><td><code>Infinity</code></td></tr>
+          <tr><td><code>Number.NEGATIVE_INFINITY</code></td><td>Negative overflow (e.g. −1/0)</td><td><code>-Infinity</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout coral">
+        <strong>Gotcha — NaN:</strong> <code>NaN</code> means "Not a Number" but <code>typeof NaN === "number"</code> is <em>true</em>. Even stranger: <code>NaN === NaN</code> is <em>false</em> — NaN is the only value in JS not equal to itself. Always test with <code>isNaN(x)</code>.
+      </div>
+
+      <pre><code><span class="kw">var</span> bad      = <span class="num">0</span> / <span class="num">0</span>;      <span class="cm">// NaN  (0÷0 is undefined mathematically)</span>
+<span class="kw">var</span> overflow = <span class="num">1</span> / <span class="num">0</span>;      <span class="cm">// Infinity</span>
+<span class="kw">var</span> tooSmall = -<span class="num">1</span> / <span class="num">0</span>;     <span class="cm">// -Infinity</span>
+<span class="kw">var</span> parsed   = <span class="fn">parseInt</span>(<span class="str">"abc"</span>); <span class="cm">// NaN  (can't parse "abc" as integer)</span>
+
+console.<span class="fn">log</span>(bad === bad);     <span class="cm">// false — NaN is NEVER equal to itself!</span>
+console.<span class="fn">log</span>(<span class="fn">isNaN</span>(bad));     <span class="cm">// true  ← correct way to detect NaN</span>
+console.<span class="fn">log</span>(<span class="fn">isNaN</span>(<span class="num">42</span>));      <span class="cm">// false</span>
+console.<span class="fn">log</span>(<span class="fn">isNaN</span>(<span class="str">"hello"</span>)); <span class="cm">// true  — "hello" cannot become a number</span>
+console.<span class="fn">log</span>(<span class="fn">isNaN</span>(<span class="str">"3.14"</span>));  <span class="cm">// false — "3.14" CAN be converted to a number</span></code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 17. STRING OBJECT ── -->
+    <section class="section" id="strings">
+      <div class="section-header">
+        <span class="section-num">17</span>
+        <h2>String Object</h2>
+      </div>
+
+      <p>Strings in JavaScript are immutable sequences of characters. Even though you write them as primitives (<code>"hello"</code>), JavaScript automatically wraps them in a <strong>String object</strong> whenever you access a property or method — which is why you can call <code>.length</code>, <code>.toUpperCase()</code>, etc. on them. The <code>new</code> keyword is used when you explicitly want a String <em>object</em> (rare in practice).</p>
+
+      <pre><code><span class="kw">var</span> str = <span class="str">"George"</span>;              <span class="cm">// primitive string</span>
+<span class="kw">var</span> strObj = <span class="kw">new</span> <span class="fn">String</span>(<span class="str">"George"</span>); <span class="cm">// String OBJECT — uses new keyword</span>
+
+console.<span class="fn">log</span>(str.<span class="prop">length</span>);        <span class="cm">// 6  (auto-wrapped to access .length)</span>
+console.<span class="fn">log</span>(strObj.<span class="prop">length</span>);     <span class="cm">// 6  (same result)</span>
+console.<span class="fn">log</span>(<span class="kw">typeof</span> str);         <span class="cm">// "string"</span>
+console.<span class="fn">log</span>(<span class="kw">typeof</span> strObj);      <span class="cm">// "object"  ← note the difference!</span></code></pre>
+
+      <div class="callout">
+        <strong>When is <code>new String()</code> used?</strong> Almost never in practice. The String primitive auto-wraps for method calls. However, the <code>new</code> keyword with <code>String</code> can matter in comparisons: <code>"hello" === new String("hello")</code> is <em>false</em> because one is a primitive and the other is an object.
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Method</th><th>Description</th><th>Example (str = "George")</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>charAt(i)</code></td><td>Character at index i</td><td><code>str.charAt(2)</code></td><td><code>"o"</code></td></tr>
+          <tr><td><code>indexOf(s)</code></td><td>First index of substring s (−1 if not found)</td><td><code>str.indexOf('r')</code></td><td><code>3</code></td></tr>
+          <tr><td><code>lastIndexOf(s)</code></td><td>Last index of substring</td><td><code>str.lastIndexOf('e')</code></td><td><code>5</code></td></tr>
+          <tr><td><code>substring(i, j)</code></td><td>Characters from i up to (not including) j</td><td><code>str.substring(2, 5)</code></td><td><code>"org"</code></td></tr>
+          <tr><td><code>toLowerCase()</code></td><td>All lowercase</td><td><code>str.toLowerCase()</code></td><td><code>"george"</code></td></tr>
+          <tr><td><code>toUpperCase()</code></td><td>All uppercase</td><td><code>str.toUpperCase()</code></td><td><code>"GEORGE"</code></td></tr>
+          <tr><td><code>trim()</code></td><td>Remove leading/trailing whitespace</td><td><code>"  hi  ".trim()</code></td><td><code>"hi"</code></td></tr>
+          <tr><td><code>split(sep)</code></td><td>Split into an array</td><td><code>"a,b,c".split(",")</code></td><td><code>["a","b","c"]</code></td></tr>
+          <tr><td><code>includes(s)</code></td><td>Does it contain s?</td><td><code>str.includes("eo")</code></td><td><code>true</code></td></tr>
+          <tr><td><code>startsWith(s)</code></td><td>Does it start with s?</td><td><code>str.startsWith("Ge")</code></td><td><code>true</code></td></tr>
+          <tr><td><code>replace(a, b)</code></td><td>Replace first match of a with b</td><td><code>str.replace("G","J")</code></td><td><code>"Jeorge"</code></td></tr>
+          <tr><td><code>slice(i, j)</code></td><td>Like substring, but supports negative indices</td><td><code>str.slice(-3)</code></td><td><code>"rge"</code></td></tr>
+        </tbody>
+      </table>
+
+      <p><strong>More examples with <code>str = "George"</code>:</strong></p>
+      <pre><code><span class="kw">var</span> str = <span class="str">"George"</span>;
+
+str.<span class="fn">charAt</span>(<span class="num">2</span>)        <span class="cm">// 'o'   — index 0=G, 1=e, 2=o, 3=r, 4=g, 5=e</span>
+str.<span class="fn">indexOf</span>(<span class="str">'r'</span>)     <span class="cm">// 3</span>
+str.<span class="fn">substring</span>(<span class="num">2</span>, <span class="num">4</span>)  <span class="cm">// 'or'  — chars at index 2 and 3 (not 4)</span>
+str.<span class="fn">toLowerCase</span>()    <span class="cm">// 'george'</span>
+str.<span class="fn">slice</span>(-<span class="num">3</span>)        <span class="cm">// 'rge' — last 3 characters (negative counts from end)</span>
+str.<span class="fn">split</span>(<span class="str">''</span>)        <span class="cm">// ['G','e','o','r','g','e']  — every character</span></code></pre>
+
+      <p><strong>String Concatenation &amp; Type Coercion:</strong></p>
+      <div class="callout purple">
+        <strong>The + operator:</strong> If either operand is a string, <code>+</code> performs <strong>concatenation</strong>, not addition. All other numeric operators coerce strings to numbers.
+      </div>
+
+      <pre><code><span class="cm">// Concatenation with +</span>
+<span class="str">"August"</span> + <span class="num">1977</span>       <span class="cm">// → "August1977"  (number coerced to string)</span>
+<span class="str">"5"</span> + <span class="num">3</span>              <span class="cm">// → "53"  (both become strings!)</span>
+<span class="num">5</span> + <span class="num">3</span> + <span class="str">"1"</span>         <span class="cm">// → "81"  (left-to-right: 5+3=8, then "8"+"1"="81")</span>
+<span class="str">"1"</span> + <span class="num">5</span> + <span class="num">3</span>         <span class="cm">// → "153" (left-to-right: "1"+"5"="15", then "15"+"3"="153")</span>
+
+<span class="cm">// Other operators coerce strings to numbers</span>
+<span class="num">7</span> * <span class="str">"3"</span>              <span class="cm">// → 21  (string "3" coerced to number 3)</span>
+<span class="str">"10"</span> - <span class="num">4</span>            <span class="cm">// → 6   (string "10" coerced to number 10)</span>
+<span class="str">"abc"</span> * <span class="num">2</span>           <span class="cm">// → NaN (can't convert "abc" to a number)</span></code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 18. DATE OBJECT ── -->
+    <section class="section" id="dates">
+      <div class="section-header">
+        <span class="section-num">18</span>
+        <h2>Date Object</h2>
+      </div>
+
+      <p>The <strong>Date object</strong> lets you work with dates and times. It is always created with the <code>new</code> keyword — this is because each call to <code>new Date()</code> creates a completely independent Date object representing a point in time. Without <code>new</code>, calling <code>Date()</code> just returns the current date as a plain string, not a usable object.</p>
+
+      <pre><code><span class="kw">var</span> today = <span class="kw">new</span> <span class="fn">Date</span>();          <span class="cm">// new = creates a Date OBJECT for right now</span>
+<span class="kw">var</span> badDate = <span class="fn">Date</span>();            <span class="cm">// without new = just a plain string!</span>
+console.<span class="fn">log</span>(<span class="kw">typeof</span> today);       <span class="cm">// "object"</span>
+console.<span class="fn">log</span>(<span class="kw">typeof</span> badDate);     <span class="cm">// "string" — you cannot call .getMonth() on this</span>
+
+<span class="cm">// You can also create a specific date by passing arguments:</span>
+<span class="kw">var</span> specific = <span class="kw">new</span> <span class="fn">Date</span>(<span class="num">2000</span>, <span class="num">5</span>, <span class="num">15</span>);  <span class="cm">// June 15, 2000 (month 5 = June)</span>
+<span class="kw">var</span> fromMs   = <span class="kw">new</span> <span class="fn">Date</span>(<span class="num">0</span>);             <span class="cm">// January 1, 1970 00:00:00 UTC</span></code></pre>
+
+      <table>
+        <thead>
+          <tr><th>Method</th><th>Description</th><th>Example Result</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>toLocaleString()</code></td><td>Formatted date/time string (locale-aware)</td><td><code>"3/28/2026, 10:30:00 AM"</code></td></tr>
+          <tr><td><code>getDate()</code></td><td>Day of month (1–31)</td><td><code>28</code></td></tr>
+          <tr><td><code>getMonth()</code></td><td>Month (0–11 — 0=January, 11=December!)</td><td><code>2</code> (March)</td></tr>
+          <tr><td><code>getDay()</code></td><td>Day of week (0=Sunday, 6=Saturday)</td><td><code>6</code> (Saturday)</td></tr>
+          <tr><td><code>getFullYear()</code></td><td>4-digit year</td><td><code>2026</code></td></tr>
+          <tr><td><code>getHours()</code></td><td>Hour in 24h format (0–23)</td><td><code>10</code></td></tr>
+          <tr><td><code>getMinutes()</code></td><td>Minutes (0–59)</td><td><code>30</code></td></tr>
+          <tr><td><code>getSeconds()</code></td><td>Seconds (0–59)</td><td><code>45</code></td></tr>
+          <tr><td><code>getMilliseconds()</code></td><td>Milliseconds (0–999)</td><td><code>123</code></td></tr>
+          <tr><td><code>getTime()</code></td><td>Milliseconds since Jan 1, 1970 (Unix epoch)</td><td><code>1743157800000</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout coral">
+        <strong>Common trap!</strong> <code>getMonth()</code> returns 0–11, not 1–12. January = 0, December = 11. Always add 1 when displaying the month to users.
+      </div>
+
+      <pre><code><span class="kw">var</span> now = <span class="kw">new</span> <span class="fn">Date</span>();
+
+<span class="cm">// ❌ Wrong — shows 2 for March instead of 3</span>
+document.<span class="fn">write</span>(<span class="str">"Month: "</span> + now.<span class="fn">getMonth</span>());       <span class="cm">// "Month: 2"</span>
+
+<span class="cm">// ✅ Correct — add 1 to convert from 0-based to 1-based</span>
+document.<span class="fn">write</span>(<span class="str">"Month: "</span> + (now.<span class="fn">getMonth</span>() + <span class="num">1</span>)); <span class="cm">// "Month: 3"</span>
+
+<span class="cm">// Build a human-readable date string</span>
+<span class="kw">var</span> months = [<span class="str">"Jan"</span>,<span class="str">"Feb"</span>,<span class="str">"Mar"</span>,<span class="str">"Apr"</span>,<span class="str">"May"</span>,<span class="str">"Jun"</span>,
+              <span class="str">"Jul"</span>,<span class="str">"Aug"</span>,<span class="str">"Sep"</span>,<span class="str">"Oct"</span>,<span class="str">"Nov"</span>,<span class="str">"Dec"</span>];
+<span class="kw">var</span> formatted = months[now.<span class="fn">getMonth</span>()] + <span class="str">" "</span> +
+                now.<span class="fn">getDate</span>() + <span class="str">", "</span> + now.<span class="fn">getFullYear</span>();
+<span class="cm">// → "Mar 28, 2026"</span>
+
+<span class="cm">// Calculate days between two dates using getTime()</span>
+<span class="kw">var</span> birthday = <span class="kw">new</span> <span class="fn">Date</span>(<span class="num">2000</span>, <span class="num">5</span>, <span class="num">15</span>);  <span class="cm">// June 15, 2000</span>
+<span class="kw">var</span> msPerDay  = <span class="num">1000</span> * <span class="num">60</span> * <span class="num">60</span> * <span class="num">24</span>; <span class="cm">// ms → sec → min → hr → day</span>
+<span class="kw">var</span> daysSince = Math.<span class="fn">floor</span>((now.<span class="fn">getTime</span>() - birthday.<span class="fn">getTime</span>()) / msPerDay);
+console.<span class="fn">log</span>(<span class="str">"Days since birthday: "</span> + daysSince);</code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 19. ARRAYS ── -->
+    <section class="section" id="arrays">
+      <div class="section-header">
+        <span class="section-num">19</span>
+        <h2>Arrays</h2>
+      </div>
+
+      <p>Arrays are ordered lists that can hold any mix of types. JavaScript arrays are dynamic — they grow and shrink automatically.</p>
+
+      <pre><code><span class="cm">// Two ways to create arrays:</span>
+<span class="kw">var</span> myList  = <span class="kw">new</span> <span class="fn">Array</span>(<span class="num">24</span>, <span class="str">"bread"</span>, <span class="kw">true</span>);  <span class="cm">// constructor</span>
+<span class="kw">var</span> myList2 = [<span class="num">24</span>, <span class="str">"bread"</span>, <span class="kw">true</span>];           <span class="cm">// literal (preferred)</span>
+
+console.<span class="fn">log</span>(myList2.<span class="prop">length</span>);  <span class="cm">// 3</span>
+console.<span class="fn">log</span>(myList2[<span class="num">0</span>]);      <span class="cm">// 24  (zero-indexed!)</span>
+console.<span class="fn">log</span>(myList2[<span class="num">1</span>]);      <span class="cm">// "bread"</span></code></pre>
+
+      <table>
+        <thead>
+          <tr><th>Method</th><th>Description</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>push(x)</code></td><td>Add to end</td><td><code>arr.push(5)</code> → adds 5 at end</td></tr>
+          <tr><td><code>pop()</code></td><td>Remove from end</td><td><code>arr.pop()</code> → removes and returns last element</td></tr>
+          <tr><td><code>unshift(x)</code></td><td>Add to beginning</td><td><code>arr.unshift(0)</code> → adds 0 at start</td></tr>
+          <tr><td><code>shift()</code></td><td>Remove from beginning</td><td><code>arr.shift()</code> → removes and returns first element</td></tr>
+          <tr><td><code>join(sep)</code></td><td>Join elements into string</td><td><code>[1,2,3].join(",")</code> → <code>"1,2,3"</code></td></tr>
+          <tr><td><code>sort()</code></td><td>Sort (coerces to strings!)</td><td><code>["banana","apple"].sort()</code> → alphabetical</td></tr>
+          <tr><td><code>concat(arr)</code></td><td>Merge arrays</td><td><code>[1,2].concat([3,4])</code> → <code>[1,2,3,4]</code></td></tr>
+          <tr><td><code>slice(i, j)</code></td><td>Extract portion</td><td><code>[1,2,3,4].slice(1,3)</code> → <code>[2,3]</code></td></tr>
+          <tr><td><code>reverse()</code></td><td>Reverse in place</td><td><code>[1,2,3].reverse()</code> → <code>[3,2,1]</code></td></tr>
+          <tr><td><code>toString()</code></td><td>Convert to comma-separated string</td><td><code>[1,2,3].toString()</code> → <code>"1,2,3"</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout coral">
+        <strong>Sorting gotcha:</strong> The default <code>sort()</code> converts elements to strings. So <code>[10, 9, 2].sort()</code> gives <code>[10, 2, 9]</code> (alphabetical!). For numeric sorting, pass a comparator.
+      </div>
+
+      <pre><code><span class="kw">var</span> nums = [<span class="num">10</span>, <span class="num">9</span>, <span class="num">2</span>, <span class="num">100</span>, <span class="num">5</span>];
+
+nums.<span class="fn">sort</span>();                         <span class="cm">// [10, 100, 2, 5, 9]  ← WRONG!</span>
+nums.<span class="fn">sort</span>((a, b) => a - b);           <span class="cm">// [2, 5, 9, 10, 100]  ← correct</span>
+nums.<span class="fn">sort</span>((a, b) => b - a);           <span class="cm">// [100, 10, 9, 5, 2]  ← descending</span>
+
+<span class="cm">// 2D arrays (nested arrays)</span>
+<span class="kw">var</span> matrix = [
+  [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>],
+  [<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>],
+  [<span class="num">7</span>, <span class="num">8</span>, <span class="num">9</span>]
+];
+console.<span class="fn">log</span>(matrix[<span class="num">1</span>][<span class="num">2</span>]);  <span class="cm">// 6  (row 1, column 2)</span></code></pre>
+    </section>
+
+    <!-- ──────────────────────────────────── 20. FUNCTIONS ── -->
+    <section class="section" id="functions">
+      <div class="section-header">
+        <span class="section-num">20</span>
+        <h2>Functions</h2>
+      </div>
+
+      <p>Functions are reusable blocks of code. In JavaScript, they are first-class objects — they can be passed around like values.</p>
+
+      <pre><code><span class="cm">// Function declaration</span>
+<span class="kw">function</span> <span class="fn">greet</span>(name) {
+  <span class="kw">return</span> <span class="str">"Hello, "</span> + name + <span class="str">"!"</span>;
+}
+
+console.<span class="fn">log</span>(<span class="fn">greet</span>(<span class="str">"Alice"</span>));   <span class="cm">// "Hello, Alice!"</span>
+console.<span class="fn">log</span>(<span class="fn">greet</span>(<span class="str">"Bob"</span>));     <span class="cm">// "Hello, Bob!"</span></code></pre>
+
+      <div class="callout">
+        <strong>Return value:</strong> If a function has no <code>return</code> statement, or <code>return</code> with no value, it returns <code>undefined</code>.
+      </div>
+
+      <p><strong>Parameters and scope:</strong></p>
+      <pre><code><span class="cm">// Variables declared inside a function are LOCAL</span>
+<span class="kw">var</span> globalVar = <span class="str">"I am global"</span>;
+
+<span class="kw">function</span> <span class="fn">testScope</span>() {
+  <span class="kw">var</span> localVar = <span class="str">"I am local"</span>;
+  console.<span class="fn">log</span>(globalVar);  <span class="cm">// accessible — global scope</span>
+  console.<span class="fn">log</span>(localVar);   <span class="cm">// accessible — local scope</span>
+}
+
+<span class="fn">testScope</span>();
+console.<span class="fn">log</span>(globalVar);   <span class="cm">// ✅ works</span>
+console.<span class="fn">log</span>(localVar);    <span class="cm">// ❌ ReferenceError — localVar not defined here</span></code></pre>
+
+      <p><strong>Flexible parameter handling:</strong></p>
+      <pre><code><span class="cm">// JavaScript does NOT check the number of arguments!</span>
+<span class="kw">function</span> <span class="fn">add</span>(a, b) {
+  <span class="kw">return</span> a + b;
+}
+
+<span class="fn">add</span>(<span class="num">2</span>, <span class="num">3</span>);       <span class="cm">// 5  — normal</span>
+<span class="fn">add</span>(<span class="num">2</span>);          <span class="cm">// NaN — b is undefined, 2 + undefined = NaN</span>
+<span class="fn">add</span>(<span class="num">2</span>, <span class="num">3</span>, <span class="num">99</span>);   <span class="cm">// 5  — extra argument 99 is ignored</span>
+
+<span class="cm">// Using the arguments object to handle any number of args</span>
+<span class="kw">function</span> <span class="fn">sumAll</span>() {
+  <span class="kw">var</span> total = <span class="num">0</span>;
+  <span class="kw">for</span> (<span class="kw">var</span> i = <span class="num">0</span>; i < arguments.<span class="prop">length</span>; i++) {
+    total += arguments[i];
+  }
+  <span class="kw">return</span> total;
+}
+
+console.<span class="fn">log</span>(<span class="fn">sumAll</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>));  <span class="cm">// 15</span></code></pre>
+
+      <p><strong>Passing objects/arrays — pass by reference:</strong></p>
+      <pre><code><span class="cm">// Primitives are passed by VALUE (copy)</span>
+<span class="kw">function</span> <span class="fn">tryChange</span>(x) {
+  x = <span class="num">99</span>;
+}
+<span class="kw">var</span> n = <span class="num">5</span>;
+<span class="fn">tryChange</span>(n);
+console.<span class="fn">log</span>(n);   <span class="cm">// still 5 — original unchanged</span>
+
+<span class="cm">// Objects/Arrays are passed by REFERENCE</span>
+<span class="kw">function</span> <span class="fn">addProperty</span>(obj) {
+  obj.<span class="prop">newProp</span> = <span class="str">"added!"</span>;
+}
+<span class="kw">var</span> myObj = { x: <span class="num">1</span> };
+<span class="fn">addProperty</span>(myObj);
+console.<span class="fn">log</span>(myObj.<span class="prop">newProp</span>);  <span class="cm">// "added!" — original IS changed</span></code></pre>
+
+      <div class="callout teal">
+        <strong>Summary:</strong> Primitive parameters (numbers, strings, booleans) are copied — changes inside the function don't affect the original. Object and array parameters pass a reference — changes inside the function <em>do</em> affect the original.
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // Highlight active nav item on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(item => item.classList.remove('active'));
+        const active = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
