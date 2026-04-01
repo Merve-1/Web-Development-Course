@@ -10,7 +10,7 @@
     height:500px;
     background-position: 50% 70%;
     /*50% controls where the background image is placed horizontally.*/
-    /*70% controls where the background image is placed horizontally.*/
+    /*70% controls where the background image is placed Virtical.*/
 }
 .div3{
     height:1000px;
@@ -32,7 +32,7 @@
     background-image: url(../images/img5.jpg);
     background-repeat:no-repeat;
     background-size: 200px 150px; 
-    background-position:  center right;
+    background-position:  center left;
 
 }
 

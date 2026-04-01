@@ -72,7 +72,7 @@
     text-decoration-line:underline;
     text-decoration-color:blue;
     text-decoration-style:wavy;
-    -moz-text-decoration-style: dashed;
+    -moz-text-decoration-style: dotted;
 }
 .p12{
     text-decoration: underline rgb(113, 177, 113) solid;
