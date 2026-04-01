@@ -91,3 +91,23 @@ div{
     background:rgb(136, 74, 74);
     text-align: right;
 }
+.p14{
+    letter-spacing: normal;
+}
+.p15{
+    letter-spacing: 10px;
+}
+.p16{
+    letter-spacing: -2px;
+    line-height: 34px;
+}
+.p17{
+    word-spacing: 24px;
+    width:500px;
+    border: dashed;
+    
+}
+.p18{
+    border: 3px solid;
+    white-space: nowrap;
+}

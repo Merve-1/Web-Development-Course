@@ -1,0 +1,14 @@
+.div1{
+    background-color: yellowgreen;
+    color:navy;
+    height: 500px;
+
+}
+.div2{
+    background-image:url(../images/img1.jpg);
+    color:rgb(17, 255, 0);
+    height:500px;
+    background-position: 50% 70%;
+    /*50% controls where the background image is placed horizontally.*/
+    /*70% controls where the background image is placed horizontally.*/
+}
