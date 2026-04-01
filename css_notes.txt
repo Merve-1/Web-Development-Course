@@ -98,3 +98,5 @@ auto-fit
 -   transition-delay
 
 Shorthand: transition: property duration timing-function delay;
+https://getcssscan.com/css-box-shadow-examples
+google.com/search?q=timing+function+in+animation+the+art+of+web&sca_esv=2f50148802d04860&sxsrf=ANbL-n5SLNkHl_BCbY5yZpYkFj4pkL_Iww%3A1775062094036&ei=TkzNaaTqAZinkdUP6svvmQg&biw=1527&bih=832&ved=0ahUKEwikycbMjc2TAxWYU6QEHerlO4MQ4dUDCBE&uact=5&oq=timing+function+in+animation+the+art+of+web&gs_lp=Egxnd3Mtd2l6LXNlcnAiK3RpbWluZyBmdW5jdGlvbiBpbiBhbmltYXRpb24gdGhlIGFydCBvZiB3ZWIyBRAhGKABMgUQIRigATIFECEYoAEyBRAhGKABSMEXUG5YzBZwAXgBkAEAmAGdAaABzQ6qAQQwLjE0uAEDyAEA-AEBmAIPoAKiD8ICChAAGEcY1gQYsAPCAgYQABgWGB7CAgUQABjvBcICCBAAGIkFGKIEwgIIEAAYgAQYogTCAgUQIRifBcICBBAhGBWYAwCIBgGQBgiSBwQxLjE0oAf8P7IHBDAuMTS4B5oPwgcFMC42LjnIBzCACAE&sclient=gws-wiz-serp

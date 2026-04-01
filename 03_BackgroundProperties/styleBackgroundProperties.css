@@ -12,3 +12,71 @@
     /*50% controls where the background image is placed horizontally.*/
     /*70% controls where the background image is placed horizontally.*/
 }
+.div3{
+    height:1000px;
+    background-image: url(../images/img3.jpeg);
+    width: 150px;
+    /* background-repeat: repeat; */
+    background-repeat: repeat-y;
+}
+.div4{
+    width: 1000px;
+    height: 200px;
+    background-image: url(../images/img4.jpg);
+    background-repeat: repeat-x;
+
+}
+.div5{
+    background-color: yellowgreen;
+    height: 500px;
+    background-image: url(../images/img5.jpg);
+    background-repeat:no-repeat;
+    background-size: 200px 150px; 
+    background-position:  center right;
+
+}
+
+.div6{
+    background-image: url(../images/img1.jpg);
+    background-position:  cover;
+    height: 500px;
+    background-position: 70% 50%;
+
+}
+
+.div7{
+    background-image: url(../images/img1.jpg);
+    background-position:  contain;
+    height: 500px;
+    background-position: 50% 50%;
+
+}
+
+
+.div8{
+    background-image: url(../images/img1.jpg);
+    height: 500px;
+    background-position: 50% 20%;
+
+}
+
+.div9{
+    background-image: url(../images/imgCover-Contain.svg);
+    height: 500px;
+    background-position: auto;
+    background-repeat: no-repeat;
+
+}
+.div10{
+        background-image: url(../images/img.webp);
+        background-repeat: no-repeat;
+        /* default -->scroll */
+        background-attachment: scroll;
+        height: 350px;
+
+}.div11{
+    background-image: url(../images/img.webp);
+    background-repeat: no-repeat;
+    height: 350px;
+    background-attachment: fixed;
+}
