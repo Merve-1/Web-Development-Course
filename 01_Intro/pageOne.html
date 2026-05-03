@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=script, initial-scale=1.0">
+    <title>Page One</title>
+    <script>
+        //null why the h1 is not rendered yet 
+        var x = document.querySelector('h1');
+        console.log(x);
+    </script>
+</head>
+<body>
+    <h1>Lorem, ipsum, Inline from head</h1>
+    <h2>Lorem, ipsum, Inline from body.</h2>
+    <h3>Lorem, ipsum, External.</h3>
+    <!--Inline-->
+
+    <!--Internal-->
+     <script>
+        var x = document.querySelector('h2');
+        console.log(x);
+    </script>
+    <!--External-->
+    <script src="intro.js">
+
+    </script>
+</body>
+</html>
