@@ -1,9 +1,9 @@
 var x = document.querySelector('h3');
 console.log(x);
 
-window.alert("Hello World");
+//window.alert("Hello World");
 document.write("Hello World from doc write");
-window.prompt("Enter your name: ");
+//window.prompt("Enter your name: ");
 
 console.log(1+1);
 console.log("Hello");
