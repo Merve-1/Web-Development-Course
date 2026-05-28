@@ -1,3 +1,5 @@
+console.log("Object");
+console.log("==================================");
 //object => document/window/ console
 
 var person = {
@@ -48,3 +50,4 @@ console.log(person.companies[1]);
 
 console.log(window.document);
 console.log(window.person);
+console.log("==================================");

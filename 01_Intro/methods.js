@@ -1,3 +1,5 @@
+console.log("Methods");
+console.log("==================================");
 //Math Methods:
 console.log("===============")
 console.log("Math Methods")
@@ -213,3 +215,23 @@ do{
 
 
 //Ternary & Nulish & Or:
+//condition ? ":"
+console.log("Ternary Operator");
+valueX= 5;
+valueX == 5 ? console.log("Yes"): console.log("No");
+
+console.log("Nullish Coalescing Operator");
+//Used with APIs
+console.log(0 || 20);
+console.log(0 ?? 20);
+
+console.log('' || 20);
+console.log('' ?? 20);
+
+console.log(null || 20);
+console.log(null ?? 20);
+
+console.log(undefined ?? 20);
+console.log(undefined ?? 20);
+console.log("==================================");
+

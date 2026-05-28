@@ -1,3 +1,5 @@
+console.log("Introduction");
+console.log("==================================");
 var x = document.querySelector('h3');
 console.log(x);
 
@@ -62,3 +64,4 @@ var person = {
 
 console.log(person);
 console.log(typeof person)
+console.log("==================================");
