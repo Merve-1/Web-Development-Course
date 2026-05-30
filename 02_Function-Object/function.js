@@ -90,11 +90,25 @@ function say(){
     console.log("Local");
     console.log(y);
 }
-
+//console.log(y); //undefined as its a local var not global
 console.log(x);
 say()
 
 
-//Self Invoked Function 
+//Self Invoked Function "Anonymous Function"
+console.log("Self Invoked Function");
+(function(){
+    console.log("Self Invoked");
+})()
+
+
+(function(){
+    var x = 20;
+    console.log(x);
+
+    function say(){
+        return 3;
+    }
+})
 
 console.log("==================================");
