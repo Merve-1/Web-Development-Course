@@ -1,0 +1,107 @@
+Bootstrap – Organized Notes
+
+1.  What is Bootstrap
+
+-   A CSS framework for building responsive and mobile-first websites
+-   Provides pre-built classes and components
+
+2.  Grid System
+
+-   Based on 12 columns
+-   Responsive breakpoints:
+    -   col-sm (≥576px)
+    -   col-md (≥768px)
+    -   col-lg (≥992px)
+    -   col-xl (≥1200px)
+    -   col-xxl (≥1400px)
+
+Example: - col-6 → takes 50% - col-md-4 → 4 columns on medium screens
+
+3.  Containers
+
+-   .container → fixed width
+-   .container-fluid → full width
+-   .container-{breakpoint}
+
+4.  Spacing (Margin & Padding)
+
+-   m → margin
+-   p → padding
+
+Directions: - t (top), b (bottom), s (start), e (end), x (left/right), y
+(top/bottom)
+
+Sizes: - 0 to 5
+
+Example: - mt-3 → margin-top - px-4 → padding left & right
+
+5.  Display Utilities
+
+-   d-none → hide element
+-   d-block, d-inline, d-flex
+
+Responsive: - d-md-none → hide on medium screens
+
+6.  Flex Utilities
+
+-   d-flex → enable flexbox
+
+Alignment: - justify-content-start / center / end / between / around -
+align-items-start / center / end
+
+7.  Colors
+
+-   text-primary, text-success, text-danger
+-   bg-primary, bg-dark, bg-light
+
+8.  Typography
+
+-   fw-bold → bold text
+-   fst-italic → italic
+-   text-center, text-start, text-end
+
+9.  Buttons
+
+-   btn
+-   btn-primary, btn-secondary, btn-success, btn-danger
+
+Sizes: - btn-lg, btn-sm
+
+10. Forms
+
+-   form-control → input styling
+-   form-label
+-   form-check (checkbox & radio)
+
+11. Components
+
+-   Navbar
+-   Card
+-   Modal
+-   Alert
+-   Carousel
+-   Dropdown
+
+12. Images
+
+-   img-fluid → responsive image
+-   rounded, rounded-circle
+
+13. Utilities
+
+-   shadow → adds shadow
+-   border → adds border
+-   rounded → border radius
+
+14. Responsive Design
+
+-   Use breakpoints with classes Example:
+-   col-sm-12 col-md-6 col-lg-4
+
+15. JavaScript Components
+
+-   Require Bootstrap JS
+-   Examples:
+    -   Modal
+    -   Tooltip
+    -   Dropdown

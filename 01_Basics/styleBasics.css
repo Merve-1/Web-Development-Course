@@ -1,0 +1,52 @@
+p{
+    color:rgb(64, 129, 203);
+}
+/*/////////Selectors/////////*/
+
+/*Universal*/
+*{
+    color: rgb(172, 134, 78)
+}
+
+/*Tag*/
+body{
+    background-color: bisque;
+}
+h2{
+    background-color: navy;
+}
+
+/*Class*/
+.card{
+    color: maroon;
+    background-color: navajowhite;
+}
+
+/*Id*/
+#uniqueCard{
+    text-decoration: underline;
+    text-transform: uppercase;
+    text-shadow: 5px;
+    font-size: x-large;
+    color:gray;
+}
+
+/*nesting selector*/
+.parent .child{
+    background-color: wheat;
+    color: navy
+
+}
+div div{
+    text-align: right;
+}
+
+/*grouping selectors*/
+ span, h6{
+    font-size: medium;
+    border-color: orange;
+    border-radius: 50px;
+    border-style: dotted;
+}
+
+

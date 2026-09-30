@@ -1,0 +1,94 @@
+body{
+    height:4000px;
+}
+.div1{
+    width:300px;
+    height: 300px;
+    color: white;
+    background-color: green;
+    /* padding: top right bottom left; */
+    padding: 20px 20px 20px 20px;
+    
+    padding-top: 20px ;
+    padding-right:30px;
+    padding-bottom: 30px;
+    padding-left:20px;
+
+    /* This mean top/bottom: 30 and right/left: 40 */
+    padding: 30px 40px;
+    
+    /* This will be applied to all  */
+    padding: 30px;
+    margin: 55px;
+
+
+    /* border: width style color; */
+    border-width: 5px;
+    border-style:solid;
+    border-color:blue;
+    box-sizing: border-box;
+    /* space between border and outline is the offset */
+    outline-offset: 2px;
+    outline: 10px solid green;
+
+    position:fixed;
+
+}
+
+.parent1{
+    width: 300px;
+    height: 300px;
+    color: white;
+    background-color: green;   
+    margin-top:500px;
+
+}
+
+.child1 {
+    width:50%;
+    height: 50%;
+    /* Margin collapse means that the parent or child margin will 
+    be treated the same both will be applied to the parent  */
+    /* or use 
+    overflow:auto    
+    */
+    /* max margin or padding 50px */
+    margin-top:30px;
+    background-color: orange;
+}
+
+.parent2 {
+    width: 300px;
+    height: 300px;
+    color: white;
+    
+    background-color: rgb(159, 123, 22);
+
+    position: absolute;
+    /* 
+    DEFAULT
+    top:0;
+    left:0; */
+    top:55px;
+    left: 480px;
+    /* don't use top and bottom together */
+    top:50%;
+    left:50%; 
+    /*This is not actully 50% its the dot that center the page 
+    but the rectangle willnot be placed in the center*/
+    transform: translate(-50%,-50%); /*This will be centered in the page*/
+    position:sticky;
+
+}
+
+.child2 {
+    width:20px;
+    height: 20px;
+    position: absolute;
+    background-color:red;
+}
+
+
+
+
+
